@@ -1,0 +1,1 @@
+web: gunicorn dOiT.wsgi --log-file -
