@@ -1,233 +1,190 @@
-/*
-*, *::after, *::before {
-    outline: none;
-    box-sizing: border-box;
-    font-family: "Droid Arabic Kufi", "icon font", "Poppins";    
-}
-
-html {
-    font-size: 0.875rem;
-}
-
-
-.toolbar-content {
-    height: 64px;
-    padding: 0 15px;
-    line-height: 50px;
-    max-width: 100%;
-    -webkit-box-align: center;
-    align-items: center;
-    display: flex;
-    color: rgba(0,0,0,0.87);
-}
-
-.toolbar-side-icon {
-    position: relative;
-    color: #4445e7;
-    width: 33.33333px;
-    height: 33.33333px;
-    margin-left: 8px;
-    -webkit-appearance: button;
-
-}
-
-.btn {
-    
-    box-shadow: none;
-    border-radius: 50%;
-    -webkit-box-pack: center;
-    justify-content: center;
-    min-width: 0;
-    -webkit-box-align: center;
-    display: inline-flex;
-    flex: 0 1 auto;
-    font-size: 14px;
-    margin: 6px 8px;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: 0.3s
-}
-
-
-
-
-input {
-  border: 1px solid transparent;
-  background-color: #f1f1f1;
-  padding: 10px;
-  font-size: 16px;
-}
-input[type=text] {
-  background-color: #f1f1f1;
-  width: 100%;
-}
-input[type=submit] {
-  background-color: DodgerBlue;
-  color: #fff;
-}
-
-
-
-/*the container must be positioned relative:*/
-
 * {
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .autocomplete {
-  position: relative;
-  display: inline-block;
-  width: 100%;
+	position: relative;
+	display: inline-block;
+	width: 100%;
+}
+
+html {
+	min-width: 280px;
 }
 
 .autocomplete-items {
-  position: absolute;
-  border: 1px solid #d4d4d4;
-  border-bottom: none;
-  border-top: none;
-  z-index: 99;
-  /*position the autocomplete items to be the same width as the container:*/
-  top: 100%;
-  left: 0;
-  right: 0;
-  text-align: left;
+	position: absolute;
+	border: 1px solid #d4d4d4;
+	border-bottom: none;
+	border-top: none;
+	z-index: 99;
+	/*position the autocomplete items to be the same width as the container:*/
+	top: 100%;
+	left: 0;
+	right: 0;
+	text-align: left;
 }
 
 .autocomplete-items div {
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff; 
-  border-bottom: 1px solid #d4d4d4; 
+	padding: 10px;
+	cursor: pointer;
+	background-color: #fff;
+	border-bottom: 1px solid #d4d4d4;
 }
+
 
 /*when hovering an item:*/
+
 .autocomplete-items div:hover {
-  background-color: #e9e9e9; 
+	background-color: #e9e9e9;
 }
+
 
 /*when navigating through the items using the arrow keys:*/
+
 .autocomplete-active {
-  background-color: DodgerBlue !important; 
-  color: #ffffff; 
-}
-*/
-
-.bd-navbar {
-    padding-right: .5rem;
-    padding-left: .5rem;
+	background-color: DodgerBlue !important;
+	color: #ffffff;
 }
 
 .bd-navbar {
-    min-height: 4rem;
-    background-color: #50ab3d;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
+	padding-right: .5rem;
+	padding-left: .5rem;
+}
+
+.bd-navbar {
+	min-height: 4rem;
+	background-color: #50ab3d;
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .05), inset 0 -1px 0 rgba(0, 0, 0, .1);
 }
 
 .navbar-dark .navbar-brand {
-    color: #fff;
-    background-color: whitesmoke;
-    border-radius: 10px;
-    padding-left: 12px;
-    padding-right: 10px;
+	color: #fff;
+	background-color: whitesmoke;
+	border-radius: 10px;
+	padding-left: 12px;
+	padding-right: 10px;
 }
 
 .active-green-4 input[type=text]:focus:not([readonly]) {
-    border: 1px solid #6c757d;
-    box-shadow: 0 0 0 1px #6c757d;
+	border: 1px solid #6c757d;
+	box-shadow: 0 0 0 1px #6c757d;
 }
 
 #img-logo {
-    height: 120px;
+	height: 120px;
 }
 
 .search-label {
-    padding: 40px;
-    box-flex: 1;
-    -webkit-box-flex: 1;
-    flex: 1 1 auto;
-    margin: auto;
-    display: block;
-    text-align: center;
-    box-shadow: 5px 2px 14px #d8d7d7, -3px 6px 13px #d8d7d7;
-    -webkit-box-shadow: 5px 2px 14px #d8d7d7, -3px 6px 13px #d8d7d7;
-    border-radius: 20px;
-    max-width: 70%;
-    margin-top: 30px;
+	padding: 40px;
+	box-flex: 1;
+	-webkit-box-flex: 1;
+	flex: 1 1 auto;
+	margin: auto;
+	display: block;
+	text-align: center;
+	box-shadow: 5px 2px 14px #d8d7d7, -3px 6px 13px #d8d7d7;
+	-webkit-box-shadow: 5px 2px 14px #d8d7d7, -3px 6px 13px #d8d7d7;
+	border-radius: 20px;
+	max-width: 70%;
+	margin-top: 30px;
 }
 
 .btn {
-    width: 150px;
+	width: 150px;
 }
 
 .right-span {
-    color: whitesmoke;
-    float: right;
-
-    margin: auto 10px auto auto;
+	color: whitesmoke;
+	float: right;
+	margin: auto 10px auto auto;
 }
 
 .result-view {
-    text-decoration: none;
-    color: #6c757d;
-    text-align: left;
+	text-decoration: none;
+	color: #6c757d;
+	text-align: left;
 }
 
 .result-view:hover {
-    color: #6c757d;
-    text-decoration: none;
+	color: #6c757d;
+	text-decoration: none;
 }
 
 .searched-name {
-    color: #50ab3d;
+	color: #50ab3d;
 }
 
 .checked {
-  color: orange;
+	color: orange;
 }
 
 .job-label {
-    color: #6c757d;
+	color: #6c757d;
 }
 
 .search-photo {
-    box-shadow: 5px 2px 14px #d8d7d7, -3px 6px 13px #d8d7d7;
-    -webkit-box-shadow: 5px 2px 14px #d8d7d7, -3px 6px 13px #d8d7d7;
-    border-radius: 10px;
-    width: 115px;
-    height: 150px;
-
+	box-shadow: 5px 2px 14px #d8d7d7, -3px 6px 13px #d8d7d7;
+	-webkit-box-shadow: 5px 2px 14px #d8d7d7, -3px 6px 13px #d8d7d7;
+	border-radius: 10px;
+	width: 115px;
+	height: 150px;
 }
 
 header {
-    width: 100%;
+	width: 100%;
 }
 
 .search-description {
-    margin-right: 10px;
+	margin-right: 10px;
+}
+
+
+@media screen and (max-width: 1550px) {
+	.search-label {
+		max-width: 80%;
+	}
+}
+
+
+@media screen and (max-width: 1200px) {
+	.search-label {
+		max-width: 90%;
+	}
 }
 
 
 @media screen and (max-width: 900px) {
-    .search-label {
-        width: 100%;
-        max-width: 100%;
-        margin-top: 0;
-    }
-
-    .mt-3 {
-        padding: 0;
-        max-width: 100%;
-
-    }
-
+	.search-label {
+		width: 100%;
+		max-width: 100%;
+		border-radius: 0;
+		margin-top: 0;
+		padding: 30px;
+	}
+	.mt-3 {
+		padding: 0;
+		max-width: 100%;
+	}
+	#img-logo {
+		height: 100px;
+	}
 }
 
 
 @media screen and (max-width: 767px) {
-
-    .right-span {
-        float: center;
-        margin: 0 auto;
-    }
-
+	.search-label {
+		padding: 10px;
+	}
+	#img-logo {
+		height: 80px;
+	}
+	.right-span {
+		float: center;
+		margin: 0 auto;
+	}
+	.search-photo {
+		width: 100px;
+		height: 130px;
+	}
 }
