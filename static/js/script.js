@@ -216,7 +216,7 @@ function GetIpLocation(ipAddress) {
         dataType: 'json',
         data: {},
         success: function(data) {
-            console.log(data);
+            //console.log(data);
             let country, region, city, lat, long;
             country = data.country;
             region = data.region;

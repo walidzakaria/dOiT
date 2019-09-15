@@ -11,25 +11,30 @@
     <link rel="shortcut icon" href="{% static 'img/dOiT_logo.svg' %}">
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'libs/bootstrap.min.css' %}">
 
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{% static 'libs/jquery.min.js' %}"></script>
 
     <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="{% static 'libs/popper.min.js' %}"></script>
 
     <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="{% static 'libs/bootstrap.min.js' %}"></script>
 
     <!-- <link rel = "stylesheet" type = "text/css" href = "dOiT.css" />-->
 
+    <!-- Font Awesome Icon Library -->
+
+    <script src="{% static 'libs/fontawesome.js' %}"></script>
+    <script src="{% static 'libs/solid.js' %}"></script>
+
+
+
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png" sizes="16x16">
+
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-    <!-- Font Awesome Icon Library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png" sizes="16x16">
 
     <!-- load js script -->
     <script src="{% static 'js/script.js' %}"></script>
@@ -82,11 +87,11 @@
                             <h3 class="searched-name">John Doe <small><i class="job-label">Carpenter</i></small></h3>
 
                             <div class="star-rating">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star fa-sm checked"></span>
+                                <span class="fa fa-star fa-sm checked"></span>
+                                <span class="fa fa-star fa-sm checked"></span>
+                                <span class="fa fa-star fa-sm"></span>
+                                <span class="fa fa-star fa-sm"></span>
                                 <p>4.1 average based on 254 reviews.</p>
                             </div>
 
@@ -101,11 +106,11 @@
                             <h3 class="searched-name">John Doe <small><i class="job-label">Carpenter</i></small></h3>
 
                             <div class="star-rating">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star fa-sm checked"></span>
+                                <span class="fa fa-star fa-sm checked"></span>
+                                <span class="fa fa-star fa-sm checked"></span>
+                                <span class="fa fa-star fa-sm"></span>
+                                <span class="fa fa-star fa-sm"></span>
                                 <p>4.1 average based on 254 reviews.</p>
                             </div>
 
@@ -133,26 +138,26 @@
         </section>
     </footer>
 
-    <script>
-        let formTemplate = '<form action="/action_page.php"><div class="form-group"><label for="email">Email address:</label><input type="email" class="form-control" id="email"></div><div class="form-group"><label for="pwd">Password:</label><input type="password" class="form-control" id="pwd"></div><div class="form-group form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox"> Remember me </label></div><button type="submit" class="btn btn-primary">Submit</button></form>';
-
-        $(document).ready(function() {
-            $(function() {
-                $('[data-toggle="popover"]').popover({
-                    container: 'body',
-                    title: 'Search',
-                    html: true,
-                    placement: 'bottom',
-                    sanitize: false,
-                    content: function() {
-                        return $("#PopoverContent").html();
-                    }
-                });
-            })
-
-        });
-    </script>
-
+    <div class="well">
+            <button type="button" id="login" class="btn">Login sign up Form</button>
+        </div>
+        <div id="myForm" class="hide">
+            <form action="/echo/html/" id="popForm" method="get">
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" class="form-control input-md">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name" class="form-control input-md">
+                    <label for="denger">Gender:</label>
+                    <select name="gender" id="gender" class="form-control input-md"><option value="male">Male</option><option value="female">Female</option></select>
+                    <label for="about">About Me:</label>
+                    <textarea rows="3" name="about" id="about" class="form-control input-md"></textarea>
+                    <button type="button" class="btn btn-primary" data-loading-text="Sending info.."><em class="icon-ok"></em> Save</button>
+                </div>
+            </form>
+        </div>
+        <div id="result"></div>
+        
     
 </body>
 
