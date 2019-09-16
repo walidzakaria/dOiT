@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 function GetSuggestions(keywords) {
     keywords = keywords.replace(' ', '+');
-    let link = `http://autocomplete.geocoder.api.here.com/6.2/suggest.json?app_id=35mHfJ3nOmgsSR7Om5tn&app_code=dXMLSO7UYuvI6U0Ns_OmRQ&query=${keywords}`
+    let link = `https://autocomplete.geocoder.api.here.com/6.2/suggest.json?app_id=35mHfJ3nOmgsSR7Om5tn&app_code=dXMLSO7UYuvI6U0Ns_OmRQ&query=${keywords}&beginHighlight=<b>&endHighlight=</b>`
     $.ajax({
         type: 'GET',
         url: link,
@@ -75,24 +75,22 @@ function ListAutoComplete(objectName, suggestions) {
                 for (i = 0; i < arr.length; i++) {
                     /*check if the item starts with the same letters as the text field value:*/
 
-                    if (arr[i].label.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                        /*create a DIV element for each matching element:*/
-                        b = document.createElement("DIV");
-                        /*make the matching letters bold:*/
-                        b.innerHTML = "<strong>" + arr[i].label.substr(0, val.length) + "</strong>";
-                        b.innerHTML += arr[i].label.substr(val.length);
-                        /*insert a input field that will hold the current array item's value:*/
-                        b.innerHTML += "<input type='hidden' value='" + arr[i].label + "'>";
-                        /*execute a function when someone clicks on the item value (DIV element):*/
-                        b.addEventListener("click", function(e) {
-                            /*insert the value for the autocomplete text field:*/
-                            inp.value = this.getElementsByTagName("input")[0].value;
-                            /*close the list of autocompleted values,
-                            (or any other open lists of autocompleted values:*/
-                            closeAllLists();
-                        });
-                        a.appendChild(b);
-                    }
+                    /*create a DIV element for each matching element:*/
+                    b = document.createElement("DIV");
+                    /*make the matching letters bold:*/
+                    b.innerHTML = arr[i].label;
+
+                    /*insert a input field that will hold the current array item's value:*/
+                    b.innerHTML += "<input type='hidden' value='" + arr[i].label + "'>";
+                    /*execute a function when someone clicks on the item value (DIV element):*/
+                    b.addEventListener("click", function(e) {
+                        /*insert the value for the autocomplete text field:*/
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        /*close the list of autocompleted values,
+                        (or any other open lists of autocompleted values:*/
+                        closeAllLists();
+                    });
+                    a.appendChild(b);
                 }
 
             }
