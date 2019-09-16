@@ -50,13 +50,79 @@
 
         <div class="navbar-nav-scroll">
             <ul class="navbar-nav bd-navbar-nav flex-row">
-                <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
-            </ul>
+
+
+                <li class="dropdown nav-item">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Sign in <b
+                            class="caret"></b></a>
+                    <ul id="login-form" class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+                        <li>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form class="form" autocomplete="off" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> Remember me
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-success btn-block">Sign in</button>
+                                            <button type="submit" class="btn btn-secondary btn-block">Sign up</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+
+                    </ul>
         </div>
 
-        <span id="locationLabel" class="nav-link right-span">Location</span>
+        <span class="nav-link right-span">
+
+
+            <ul class="navbar-nav bd-navbar-nav flex-row">
+
+
+                <li class="dropdown nav-item">
+                    <a id="locationLabel" href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"
+                        areahaspopup="true">Select Location<b class="caret"></b></a>
+                    <ul id="location-form" class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+                        <li>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form class="form" autocomplete="off" role="form" method="post" action="login"
+                                        accept-charset="UTF-8" id="Form1">
+                                        <div class="form-group autocomplete active-green-4 mb-4">
+                                            <label class="sr-only" for="select-location">Location</label>
+                                            <input type="text" class="form-control" id="select-country"
+                                                placeholder="Where're you?" required>
+
+
+                                        </div>
+                                        <button type="submit" class="btn btn-success btn-block">OK</button>
+                                </div>
+                                </form>
+                            </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+
+                    </ul>
+
+
+        </span>
     </header>
+
+
 
     <main>
 
@@ -127,6 +193,57 @@
     </main>
 
     <footer>
+        <section>
+            <div id="PopoverContent" class="d-none">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username with two button addons" aria-describedby="button-addon1">
+                    <div class="input-group-append" id="button-addon1">
+                        <button class="btn btn-outline-primary" type="button" data-toggle="popover" data-placement="bottom" data-html="true" data-title="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Test modal</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
+                                            <div class="input-group-append" id="button-addon4">
+                                                <button class="btn btn-outline-primary" type="button" data-toggle="popover">
+                                                    <i class="fas fa-user-plus"></i>
+                                                </button>
+                                                <button class="btn btn-outline-danger" type="button">
+                                                    <i class="fas fa-user-minus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
         <section class="location-info">
             <div id="locationLabel"></div>
             <div id="hidden-country"></div>
@@ -138,27 +255,8 @@
         </section>
     </footer>
 
-    <div class="well">
-            <button type="button" id="login" class="btn">Login sign up Form</button>
-        </div>
-        <div id="myForm" class="hide">
-            <form action="/echo/html/" id="popForm" method="get">
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" class="form-control input-md">
-                    <label for="name">Name:</label>
-                    <input type="text" name="name" id="name" class="form-control input-md">
-                    <label for="denger">Gender:</label>
-                    <select name="gender" id="gender" class="form-control input-md"><option value="male">Male</option><option value="female">Female</option></select>
-                    <label for="about">About Me:</label>
-                    <textarea rows="3" name="about" id="about" class="form-control input-md"></textarea>
-                    <button type="button" class="btn btn-primary" data-loading-text="Sending info.."><em class="icon-ok"></em> Save</button>
-                </div>
-            </form>
-        </div>
-        <div id="result"></div>
-        
-    
+
+
 </body>
 
 </html>
