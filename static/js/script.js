@@ -105,13 +105,15 @@ function ListAutoComplete(objectName, suggestions) {
                 increase the currentFocus variable:*/
                 currentFocus++;
                 /*and and make the current item more visible:*/
-                addActive(x);
+                //addActive(x);
+                SetActive(currentFocus)
             } else if (e.keyCode == 38) { //up
                 /*If the arrow UP key is pressed,
                 decrease the currentFocus variable:*/
                 currentFocus--;
                 /*and and make the current item more visible:*/
-                addActive(x);
+                //addActive(x);
+                SetActive(currentFocus)
             } else if (e.keyCode == 13) {
                 /*If the ENTER key is pressed, prevent the form from being submitted,*/
                 e.preventDefault();
@@ -122,23 +124,28 @@ function ListAutoComplete(objectName, suggestions) {
             }
         });
 
-        function addActive(x) {
-            /*a function to classify an item as "active":*/
-            if (!x) return false;
-            /*start by removing the "active" class on all items:*/
-            removeActive(x);
-            if (currentFocus >= x.length) currentFocus = 0;
-            if (currentFocus < 0) currentFocus = (x.length - 1);
-            /*add class "autocomplete-active":*/
-            x[currentFocus].classList.add("autocomplete-active");
-        }
+        function SetActive(activeIndex) {
+            console.log(activeIndex);
+        };
+        //function addActive(x) {
+        //    /*a function to classify an item as "active":*/
+        //    if (!x) return false;
+        //    /*start by removing the "active" class on all items:*/
+        //    removeActive(x);
+        //    if (currentFocus >= x.length) currentFocus = 0;
+        //    if (currentFocus < 0) currentFocus = (x.length - 1);
+        /*add class "autocomplete-active":*/
 
-        function removeActive(x) {
-            /*a function to remove the "active" class from all autocomplete items:*/
-            for (var i = 0; i < x.length; i++) {
-                x[i].classList.remove("autocomplete-active");
-            }
-        }
+        //    x[currentFocus].classList.add("autocomplete-active");
+
+        //}
+
+        //function removeActive(x) {
+        //    /*a function to remove the "active" class from all autocomplete items:*/
+        //    for (var i = 0; i < x.length; i++) {
+        //        x[i].classList.remove("autocomplete-active");
+        //    }
+        // }
 
         function closeAllLists(elmnt) {
             /*close all autocomplete lists in the document,
