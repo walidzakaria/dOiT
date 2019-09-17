@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-
     GetGeoLocation();
 
     $('form').submit(function(e) {
@@ -17,8 +16,10 @@ $(document).ready(function() {
         GetSuggestions(search);
     });
 
+    $('#location-form').submit(function(e) {
+        alert('yes');
+    });
 });
-
 
 function GetSuggestions(keywords) {
     keywords = keywords.replace(' ', '+');
@@ -41,7 +42,6 @@ function GetSuggestions(keywords) {
     });
 
 };
-
 
 // general functions here!
 
@@ -103,17 +103,26 @@ function ListAutoComplete(objectName, suggestions) {
             if (e.keyCode == 40) {
                 /*If the arrow DOWN key is pressed,
                 increase the currentFocus variable:*/
+
                 currentFocus++;
+
+                if (currentFocus >= x.length) currentFocus = 0;
+                if (currentFocus < 0) currentFocus = (x.length - 1);
+
                 /*and and make the current item more visible:*/
                 //addActive(x);
-                SetActive(currentFocus)
+                SetActive(x, currentFocus)
             } else if (e.keyCode == 38) { //up
                 /*If the arrow UP key is pressed,
                 decrease the currentFocus variable:*/
                 currentFocus--;
                 /*and and make the current item more visible:*/
                 //addActive(x);
-                SetActive(currentFocus)
+
+                if (currentFocus >= x.length) currentFocus = 0;
+                if (currentFocus < 0) currentFocus = (x.length - 1);
+
+                SetActive(x, currentFocus)
             } else if (e.keyCode == 13) {
                 /*If the ENTER key is pressed, prevent the form from being submitted,*/
                 e.preventDefault();
@@ -124,8 +133,15 @@ function ListAutoComplete(objectName, suggestions) {
             }
         });
 
-        function SetActive(activeIndex) {
-            console.log(activeIndex);
+        function SetActive(x, activeIndex) {
+
+            if (!isNaN(activeIndex)) {
+                for (var i = 0; i < x.length; i++) {
+                    x[i].classList.remove("autocomplete-active");
+                }
+
+                x[activeIndex].classList.add("autocomplete-active");
+            };
         };
         //function addActive(x) {
         //    /*a function to classify an item as "active":*/
@@ -166,9 +182,6 @@ function ListAutoComplete(objectName, suggestions) {
     /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
     autocomplete(document.getElementById(objectName), suggestions);
 
-
-
-
 };
 
 function GetGeoLocation() {
@@ -182,7 +195,6 @@ function GetGeoLocation() {
                 GetIp();
             }
         });
-
 
     function ShowPosition(position) {
         //let myHereKey = 'cFHqDkSD45dr2TDLBDaxWt4aPfsqcEbLed4LTz0bCyo';
