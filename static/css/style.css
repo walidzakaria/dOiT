@@ -43,8 +43,7 @@ html {
 /*when navigating through the items using the arrow keys:*/
 
 .autocomplete-active {
-    background-color: DodgerBlue !important;
-    color: #ffffff;
+    background-color: #d4d4d4 !important;
 }
 
 .bd-navbar {
@@ -142,10 +141,11 @@ header {
 #location-form {
     left: auto !important;
     right: 0px;
+    min-width: 350px !important;
 }
 
 #select-country {
-    width: 215px;
+    width: 100%;
 }
 
 @media screen and (max-width: 1550px) {
@@ -194,6 +194,14 @@ header {
     }
 }
 
+@media screen and (max-width: 650px) {
+    #location-form {
+        position: initial;
+        left: auto !important;
+        right: 0px;
+    }
+}
+
 @media screen and (max-width: 430px) {
     #login-form {
         position: initial;
@@ -202,5 +210,12 @@ header {
         position: initial;
         left: auto !important;
         right: 0px;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    #location-form {
+        min-width: 250px !important;
+        max-width: 100% !important;
     }
 }
