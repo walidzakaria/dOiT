@@ -17,13 +17,58 @@ $(document).ready(function() {
     });
 
     $('#location-form').submit(function(e) {
-        alert('yes');
+        let searchText;
+        searchText = $('#select-country').val();
+        GetSearchedLocation(searchText);
     });
 });
 
+function GetSearchedLocation(searchText) {
+    searchText = encodeURIComponent(searchText.trim());
+    let appId = '35mHfJ3nOmgsSR7Om5tn';
+    let appCode = 'dXMLSO7UYuvI6U0Ns_OmRQ';
+
+    let userLat;
+    let userLong;
+    let userLocation;
+
+    let link = `https://geocoder.api.here.com/6.2/geocode.json?app_id=${appId}&app_code=${appCode}&searchtext=${searchText}`;
+
+    $.ajax({
+        type: 'GET',
+        url: link,
+        dataType: 'json',
+        data: {},
+        success: function(data) {
+            console.log(data);
+            let myData = data;
+            userLocation = myData.Response.View[0].Result[0].Location.Address.Label;
+            $('#locationLabel').text(userLocation);
+            let locationList = userLocation.split(', ');
+            $('#hidden-country').text(locationList[2]);
+            $('#hidden-area').text(locationList[1]);
+            $('#hidden-city').text(locationList[0]);
+            $('#hidden-lat').text(userLat);
+            $('#hidden-long').text(userLong);
+
+            $('#location-form').removeClass('show');
+            $('#location-list').removeClass('show');
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+
+};
+
 function GetSuggestions(keywords) {
     keywords = keywords.replace(' ', '+');
-    let link = `https://autocomplete.geocoder.api.here.com/6.2/suggest.json?app_id=35mHfJ3nOmgsSR7Om5tn&app_code=dXMLSO7UYuvI6U0Ns_OmRQ&query=${keywords}&beginHighlight=<b>&endHighlight=</b>`
+    keywords = encodeURIComponent(keywords.trim());
+
+    let appId = '35mHfJ3nOmgsSR7Om5tn';
+    let appCode = 'dXMLSO7UYuvI6U0Ns_OmRQ';
+
+    let link = `https://autocomplete.geocoder.api.here.com/6.2/suggest.json?app_id=${appId}&app_code=${appCode}&query=${keywords}&beginHighlight=<b>&endHighlight=</b>`
     $.ajax({
         type: 'GET',
         url: link,
@@ -204,6 +249,7 @@ function GetGeoLocation() {
         let userLong;
         userLat = position.coords.latitude;
         userLong = position.coords.longitude;
+        let userLocation;
 
         let apiLink = `https://reverse.geocoder.api.here.com/6.2/reversegeocode.json?prox=${position.coords.latitude}%2C${position.coords.longitude}&mode=retrieveAreas&app_id=${appId}&app_code=${appCode}&gen=9`;
         let locationName = '';
@@ -216,7 +262,7 @@ function GetGeoLocation() {
             async: true,
             success: function(data) {
                 console.log(data);
-                var myData = data;
+                let myData = data;
                 userLocation = myData.Response.View[0].Result[0].Location.Address.Label;
                 $('#locationLabel').text(userLocation);
                 let locationList = userLocation.split(', ');
