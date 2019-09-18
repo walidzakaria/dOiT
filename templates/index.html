@@ -146,26 +146,66 @@
                 <p id="location"></p>
             </form>
 
-            <div class="container mt-3">
-                <a class="result-view" href="#">
-                    <div class="media border p-3">
-                        <div class="media-body">
-                            <h3 class="searched-name">John Doe <small><i class="job-label">Carpenter</i></small></h3>
+            <div class="container mt-3 result-view">
 
-                            <div class="star-rating">
-                                <span class="fa fa-star fa-sm checked"></span>
-                                <span class="fa fa-star fa-sm checked"></span>
-                                <span class="fa fa-star fa-sm checked"></span>
-                                <span class="fa fa-star fa-sm"></span>
-                                <span class="fa fa-star fa-sm"></span>
-                                <p>4.1 average based on 254 reviews.</p>
+                <div class="border">
+
+                    <div class="media p-3">
+                        <a class="result-view media" href="#more-details" data-toggle="collapse">
+                            <div class="media-body">
+                                <h3 class="searched-name">John Doe <small><i class="job-label">Carpenter</i></small></h3>
+
+                                <div class="star-rating">
+                                    <span class="fa fa-star fa-sm checked"></span>
+                                    <span class="fa fa-star fa-sm checked"></span>
+                                    <span class="fa fa-star fa-sm checked"></span>
+                                    <span class="fa fa-star fa-sm"></span>
+                                    <span class="fa fa-star fa-sm"></span>
+                                    <p>4.1 average based on 254 reviews.</p>
+                                </div>
+
+                                <p class="search-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                             </div>
-
-                            <p class="search-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        </div>
-                        <img class="search-photo" src="{% static 'img/default-profile.png' %}" alt="John Doe" class="ml-3 mt-3 rounded-circle">
+                            <img class="search-photo" src="{% static 'img/default-profile.png' %}" alt="John Doe" class="ml-3 mt-3 rounded-circle">
+                        </a>
                     </div>
-                </a>
+                    <div id="more-details" class="collapse container">
+
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#user-details">Details</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#user-gallery">Gallery</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#user-deal">Deal</a>
+                            </li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div id="user-details" class="container tab-pane active">
+                                <br>
+                                <h3>Details</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                            <div id="user-gallery" class="container tab-pane fade">
+                                <br>
+                                <h3>Gallery</h3>
+                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                            <div id="user-deal" class="container tab-pane fade">
+                                <br>
+                                <h3>Deal</h3>
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
                 <a class="result-view" href="#">
                     <div class="media border p-3">
                         <div class="media-body">
@@ -187,7 +227,6 @@
                 </a>
 
             </div>
-
         </div>
 
     </main>
