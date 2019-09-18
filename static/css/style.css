@@ -148,6 +148,14 @@ header {
     width: 100%;
 }
 
+.nav-link {
+    color: Orange;
+}
+
+.nav-link:hover {
+    color: Green;
+}
+
 @media screen and (max-width: 1550px) {
     .search-label {
         max-width: 80%;
