@@ -94,10 +94,10 @@ function ListAutoComplete(objectName, suggestions) {
     function autocomplete(inp, arr) {
         /*the autocomplete function takes two arguments,
         the text field element and an array of possible autocompleted values:*/
-        var currentFocus;
+        let currentFocus;
         /*execute a function when someone writes in the text field:*/
         inp.addEventListener("input", function(e) {
-            var a, b, i, val = this.value;
+            let a, b, i, val = this.value;
             /*close any already open lists of autocompleted values*/
             closeAllLists();
             if (!val) {
@@ -143,7 +143,7 @@ function ListAutoComplete(objectName, suggestions) {
         });
         /*execute a function presses a key on the keyboard:*/
         inp.addEventListener("keydown", function(e) {
-            var x = document.getElementById(this.id + "autocomplete-list");
+            let x = document.getElementById(this.id + "autocomplete-list");
             if (x) x = x.getElementsByTagName("div");
             if (e.keyCode == 40) {
                 /*If the arrow DOWN key is pressed,
@@ -211,7 +211,7 @@ function ListAutoComplete(objectName, suggestions) {
         function closeAllLists(elmnt) {
             /*close all autocomplete lists in the document,
             except the one passed as an argument:*/
-            var x = document.getElementsByClassName("autocomplete-items");
+            let x = document.getElementsByClassName("autocomplete-items");
             for (var i = 0; i < x.length; i++) {
                 if (elmnt != x[i] && elmnt != inp) {
                     x[i].parentNode.removeChild(x[i]);
@@ -284,7 +284,7 @@ function GetGeoLocation() {
 function GetIp() {
     let ipAdress = '';
 
-    var getIp = $.ajax({
+    $.ajax({
         type: 'GET',
         url: 'https://jsonip.com?callback=?',
         dataType: 'json',
@@ -332,4 +332,13 @@ function GetIpLocation(ipAddress) {
         }
     });
 
+};
+
+function Wait(visibility, parent) {
+    if (visibility) {
+        $(parent).append(' <div class="spinner-border spinner-border-sm text-dark"></div>');
+
+    } else {
+        $('.spinner-border').remove();
+    }
 };
