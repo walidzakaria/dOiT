@@ -157,6 +157,14 @@ header {
     color: Green;
 }
 
+.more-info p {
+    margin-bottom: 0;
+}
+
+.more-info {
+    margin-bottom: 10px;
+}
+
 @media screen and (max-width: 1550px) {
     .search-label {
         max-width: 80%;
