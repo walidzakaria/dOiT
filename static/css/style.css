@@ -165,6 +165,27 @@ header {
     margin-bottom: 10px;
 }
 
+.rating-history h4 {
+    display: inline-block;
+}
+
+.star-rating-history {
+    display: inline-block;
+}
+
+.rating-carousel {
+    margin-bottom: 10px;
+}
+
+textarea {
+    width: 100%;
+}
+
+.stars {
+    cursor: hand;
+    display: inline-block;
+}
+
 @media screen and (max-width: 1550px) {
     .search-label {
         max-width: 80%;
