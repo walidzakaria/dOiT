@@ -13,22 +13,16 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from distutils.command.config import config
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-import django_heroku
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '-39!9rm3mm1(4##v60-wus-0cc$1z5zo3s16f-a%v%2aq7iufk'
-#SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-#DEBUG = config('DEBUG', default=False, cast=bool)
-
 
 ALLOWED_HOSTS = ['herokudjangoapp.herokuapp.com',
                  'doit9.herokuapp.com',
@@ -47,22 +41,6 @@ INSTALLED_APPS = [
     'main',
 
 ]
-
-
-STATIC_URL = '/static/'
-
-# for herokuapp
-PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-#  Add configuration for static files storage using whitenoise
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
-]
-
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -98,23 +76,11 @@ WSGI_APPLICATION = 'dOiT.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#}
-
-django_heroku.settings(locals())
-import dj_database_url
-#prod_db  =  dj_database_url.config(conn_max_age=500)
-#DATABASES['default'].update(prod_db)
-
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
 # Password validation
@@ -152,6 +118,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 
+STATIC_URL = '/static/'
+
+# for herokuapp
+PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+#  Add configuration for static files storage using whitenoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
+
 # LOGIN_REDIRECT_URL = "user_home"
 # LOGOUT_REDIRECT_URL = "user_home"
 # LOGIN_URL = "user_login"
@@ -166,4 +146,9 @@ REST_FRAMEWORK = {
     )
 }
 
+
+
+import dj_database_url
+prod_db  =  dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
 
