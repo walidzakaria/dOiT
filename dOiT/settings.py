@@ -76,23 +76,27 @@ WSGI_APPLICATION = 'dOiT.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#}
-
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "d20kmhhatbl1j",
-        "USER": "gxbyyeekrxmwvr",
-        "PASSWORD": "05cc69f80577a6159d74b5094f7b6646eb65615e029e20c006d12d253f82bf96",
-        "HOST": "ec2-107-20-168-237.compute-1.amazonaws.com",
-        "PORT": "5432",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+import dj_database_url
+prod_db  =  dj_database_url.config()
+DATABASES['default'].update(prod_db)
+
+#DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.postgresql_psycopg2",
+#        "NAME": "d20kmhhatbl1j",
+#        "USER": "gxbyyeekrxmwvr",
+#        "PASSWORD": "05cc69f80577a6159d74b5094f7b6646eb65615e029e20c006d12d253f82bf96",
+#        "HOST": "ec2-107-20-168-237.compute-1.amazonaws.com",
+#        "PORT": "5432",
+#    }
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -156,10 +160,4 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
-
-
-
-import dj_database_url
-prod_db  =  dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
 
