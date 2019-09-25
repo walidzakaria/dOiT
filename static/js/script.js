@@ -13,7 +13,12 @@ $(document).ready(function() {
 
     $('#select-country').on('input', function(e) {
         let search = $('#select-country').val();
-        GetSuggestions(search);
+        GetSuggestions(search, "select-country");
+    });
+
+    $('#activity-location').on('input', function(e) {
+        let search = $('#activity-location').val();
+        GetSuggestions(search, "activity-location");
     });
 
     $('#location-form').submit(function(e) {
@@ -21,53 +26,7 @@ $(document).ready(function() {
         searchText = $('#select-country').val();
         GetSearchedLocation(searchText);
     });
-
-    //$('.rating-1').click(function() {
-
-    //});
-
-    $('.star-1').on('click', function() {
-        $('.star').removeClass('checked');
-        $('.rate-1').addClass('checked');
-        $('.rating-value').val('1');
-        $('.rating-view').text('20%');
-    });
-
-    $('.star-2').on('click', function() {
-        $('.star').removeClass('checked');
-        $('.rate-1').addClass('checked');
-        $('.rate-2').addClass('checked');
-        $('.rating-value').val('2');
-        $('.rating-view').text('40%');
-    });
-
-    $('.star-3').on('click', function() {
-        $('.star').removeClass('checked');
-        $('.rate-1').addClass('checked');
-        $('.rate-2').addClass('checked');
-        $('.rate-3').addClass('checked');
-        $('.rating-value').val('3');
-        $('.rating-view').text('60%');
-    });
-
-    $('.star-4').on('click', function() {
-        $('.star').removeClass('checked');
-        $('.rate-1').addClass('checked');
-        $('.rate-2').addClass('checked');
-        $('.rate-3').addClass('checked');
-        $('.rate-4').addClass('checked');
-        $('.rating-value').val('4');
-        $('.rating-view').text('80%');
-    });
-
-    $('.star-5').on('click', function() {
-        $('.star').addClass('checked');
-        $('.rating-value').val('5');
-        $('.rating-view').text('100%');
-    });
-
 });
-
 
 function GetSearchedLocation(searchText) {
     searchText = encodeURIComponent(searchText.trim());
@@ -107,7 +66,7 @@ function GetSearchedLocation(searchText) {
 
 };
 
-function GetSuggestions(keywords) {
+function GetSuggestions(keywords, objectName) {
     keywords = keywords.replace(' ', '+');
     keywords = encodeURIComponent(keywords.trim());
 
@@ -123,7 +82,7 @@ function GetSuggestions(keywords) {
         success: function(data) {
 
             //SuggestLocation(data.suggestions);
-            ListAutoComplete("select-country", data.suggestions);
+            ListAutoComplete(objectName, data.suggestions);
 
         },
         error: function(error) {
