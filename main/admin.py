@@ -20,20 +20,18 @@ class ActivityAdmin(admin.ModelAdmin):
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ('employee_id', 'user', 'profile', 'lat', 'long', 'activity',
-                    'rating', 'description', 'join_date', 'phone')
+    list_display = ('employee_id', 'user', 'gender', 'join_date', 'phone', 'security_question', 'security_answer')
 
-    list_editable = ('user', 'profile', 'lat', 'long', 'activity',
-                     'rating', 'description', 'phone')
+    list_editable = ('user', 'gender', 'phone', 'security_question', 'security_answer')
 
-    search_fields = ('employee_id', 'user', 'profile', 'lat', 'long', 'activity',
-                     'rating', 'description', 'join_date', 'phone')
+    search_fields = ('employee_id', 'user', 'gender', 'join_date', 'phone', 'security_question', 'security_answer')
     list_per_page = 20
 
-
+'''
 @admin.register(Deal)
 class DealAdmin(admin.ModelAdmin):
     list_display = ('deal_id', 'deal_time', 'employee', 'guest', 'status', 'rating')
     list_editable = ('employee', 'guest', 'status', 'rating')
     search_fields = ('deal_id', 'deal_time', 'employee', 'guest', 'status', 'rating')
     list_per_page = 20
+'''

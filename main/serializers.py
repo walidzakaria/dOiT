@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ActivityType, Activity, Employee, Deal
+from .models import ActivityType, Activity, Employee
 from django_filters import rest_framework as filters
 
 
