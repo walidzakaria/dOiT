@@ -12,3 +12,14 @@ from django.db.models import Q
 def home(request):
     return render(request, 'index.html')
 
+
+def signup(request):
+    return render(request, 'signup.html')
+
+
+def profile(request):
+    return render(request, 'profile.html')
+
+
+def activity(request):
+    return render(request, 'activity.html')

@@ -26,7 +26,41 @@ $(document).ready(function() {
         searchText = $('#select-country').val();
         GetSearchedLocation(searchText);
     });
+
+    ApplyStarRating();
 });
+
+function ApplyStarRating() {
+    $('.star-1').click(function() {
+        $('.star').removeClass('checked');
+        $('.rate-1').addClass('checked');
+    });
+
+    $('.star-2').click(function() {
+        $('.star').removeClass('checked');
+        $('.rate-1').addClass('checked');
+        $('.rate-2').addClass('checked');
+    });
+
+    $('.star-3').click(function() {
+        $('.star').removeClass('checked');
+        $('.rate-1').addClass('checked');
+        $('.rate-2').addClass('checked');
+        $('.rate-3').addClass('checked');
+    });
+
+    $('.star-4').click(function() {
+        $('.star').removeClass('checked');
+        $('.rate-1').addClass('checked');
+        $('.rate-2').addClass('checked');
+        $('.rate-3').addClass('checked');
+        $('.rate-4').addClass('checked');
+    });
+
+    $('.star-5').click(function() {
+        $('.star').addClass('checked');
+    });
+}
 
 function GetSearchedLocation(searchText) {
     searchText = encodeURIComponent(searchText.trim());
