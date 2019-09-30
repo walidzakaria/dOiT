@@ -1,229 +1,90 @@
-<!DOCTYPE html> {% load staticfiles %}
+{% extends 'base.html' %} {% block content %} {% load staticfiles %}
 
-<html lang="en">
+<div class="container register">
+    <div class="row">
+        <div class="col-md-3 register-left">
+            <img src="{% static 'img/dOiT_logo.svg' %}" alt="dOiT logo" />
+            <h3>Welcome</h3>
+            <p class="lead">You are 30 seconds away from finishing the registration!</p>
+        </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <div class="col-md-9 register-right">
 
-    <title>dOiT</title>
-    <link rel="shortcut icon" href="{% static 'img/dOiT_logo.svg' %}">
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="{% static 'libs/bootstrap.min.css' %}">
-
-    <!-- jQuery library -->
-    <script src="{% static 'libs/jquery.min.js' %}"></script>
-
-    <!-- Popper JS -->
-    <script src="{% static 'libs/popper.min.js' %}"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="{% static 'libs/bootstrap.min.js' %}"></script>
-
-    <!-- <link rel = "stylesheet" type = "text/css" href = "dOiT.css" />-->
-
-    <!-- Font Awesome Icon Library -->
-
-    <script src="{% static 'libs/fontawesome.js' %}"></script>
-    <script src="{% static 'libs/solid.js' %}"></script>
-
-
-
-    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png" sizes="16x16">
-
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-    <!-- load js script -->
-    <script src="{% static 'js/script.js' %}"></script>
-
-</head>
-
-<body>
-
-    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
-        <a class="navbar-brand mr-0 mr-md-2" href="/" area-label="Bootstrap">
-            <img src="{% static 'img/dOiT_logo.svg' %}" height="36px" class="d-block" viewBox="0 0 612 612" role="img" focusable="false" />
-        </a>
-
-        <div class="navbar-nav-scroll">
-            <ul class="navbar-nav bd-navbar-nav flex-row">
-
-                <li class="dropdown nav-item">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Sign in <b class="caret"></b></a>
-                    <ul id="login-form" class="dropdown-menu" style="padding: 15px;min-width: 250px;">
-                        <li>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <form class="form" autocomplete="off" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
-                                        <div class="form-group">
-                                            <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="exampleInputPassword2">Password</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox"> Remember me
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="register-heading">Signup</h3>
+                    <form>
+                        <div class="row register-form">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="First Name *" value="" required />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Last Name *" value="" required />
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Password *" value="" required />
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Confirm Password *" value="" required />
+                                </div>
+                                <div class="form-group">
+                                    <div class="maxl">
+                                        <label class="radio inline">
+                                                <input type="radio" name="gender" value="male" checked>
+                                                <span> Male </span>
                                             </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-success btn-block">Sign in</button>
-                                            <button type="submit" class="btn btn-secondary btn-block">Sign up</button>
-                                        </div>
-                                    </form>
+                                        <label class="radio inline">
+                                                <input type="radio" name="gender" value="female">
+                                                <span>Female </span>
+                                            </label>
+                                    </div>
                                 </div>
                             </div>
-                        </li>
-                        <li class="divider"></li>
-
-                    </ul>
-                </li>
-                <li class="dropdown nav-item">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Username <b class="caret"></b></a>
-                    <ul id="user-info" class="dropdown-menu" style="padding: 15px; min-width: 250px;">
-                        <a class="dropdown nav-link text-dark nav-list" href="#">Life</a>
-                        <a class="dropdown nav-link text-dark nav-list" href="#">Activity</a>
-                        <a class="dropdown nav-link text-dark nav-list" href="#">Profile</a>
-                        <a class="dropdown nav-link text-danger nav-list" href="#">Sign Out</a>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-
-        <span class="nav-link right-span">
-
-            <ul class="navbar-nav bd-navbar-nav flex-row">
-
-                <li class="dropdown nav-item">
-                     <a id="locationLabel" href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" areahaspopup="true">Select Location<b class="caret"></b></a>
-                     <ul id="location-form" class="dropdown-menu" style="padding: 15px;min-width: 250px;">
-                        <li id="location-list">
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <form class="form" autocomplete="off" role="form" method="post" action="login" accept-charset="UTF-8" id="location-form">
-                                    <div class="form-group autocomplete active-green-4 mb-4">
-                                       <label class="sr-only" for="select-location">Location</label>
-                                       <input type="text" class="form-control" id="select-country" placeholder="Where're you?" required />
-
-                                    </div>
-                                       <button type="submit" class="btn btn-success btn-block">OK</button>
-
-                                 </form>
-                              </div>
-                           </div>
-                        </li>
-                        <li class="divider"></li>
-
-                    </ul>
-                </li>
-            </ul>
-        </span>
-    </header>
-
-
-
-    <main>
-        <div class="container register">
-            <div class="row">
-                <div class="col-md-3 register-left">
-                    <img src="{% static 'img/dOiT_logo.svg' %}" alt="dOiT logo" />
-                    <h3>Welcome</h3>
-                    <p class="lead">You are 30 seconds away from finishing the registration!</p>
-                </div>
-
-                <div class="col-md-9 register-right">
-
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <h3 class="register-heading">Signup</h3>
-                            <form>
-                                <div class="row register-form">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="First Name *" value="" required />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Last Name *" value="" required />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="Password *" value="" required />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="Confirm Password *" value="" required />
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="maxl">
-                                                <label class="radio inline">
-                                                    <input type="radio" name="gender" value="male" checked>
-                                                    <span> Male </span>
-                                                </label>
-                                                <label class="radio inline">
-                                                    <input type="radio" name="gender" value="female">
-                                                    <span>Female </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" placeholder="Your Email *" value="" required />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="tel" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" />
-                                        </div>
-                                        <div class="form-group">
-                                            <select class="form-control">
-                                                <option class="hidden" selected disabled>Please select your Sequrity Question</option>
-                                                <option>What is your Birthdate?</option>
-                                                <option>What is Your old Phone Number</option>
-                                                <option>What is your Pet Name?</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Enter Your Answer *" value="" required/>
-                                        </div>
-
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile">
-                                            <label class="custom-file-label" for="customFile">Choose Profile Picture</label>
-                                        </div>
-
-                                        <input type="submit" class="btnRegister" value="Register" />
-
-                                    </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Your Email *" value="" required />
                                 </div>
-                            </form>
+                                <div class="form-group">
+                                    <input type="tel" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" />
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control">
+                                            <option class="hidden" selected disabled>Please select your Sequrity Question</option>
+                                            <option>What is your Birthdate?</option>
+                                            <option>What is Your old Phone Number</option>
+                                            <option>What is your Pet Name?</option>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Enter Your Answer *" value="" required/>
+                                </div>
+
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Choose Profile Picture</label>
+                                </div>
+
+                                <input type="submit" class="btnRegister" value="Register" />
+
+                            </div>
                         </div>
-
-                    </div>
+                    </form>
                 </div>
+
             </div>
-
         </div>
+    </div>
 
-        <section class="location-info">
-            <div id="locationLabel"></div>
-            <div id="hidden-country"></div>
-            <div id="hidden-area"></div>
-            <div id="hidden-city"></div>
-            <div id="hidden-lat"></div>
-            <div id="hidden-long"></div>
-            <div id="hidden-ip"></div>
-        </section>
-    </main>
+</div>
 
-    <script>
-        // Add the following code if you want the name of the file appear on select
-        $(".custom-file-input").on("change", function() {
-            var fileName = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-        });
-    </script>
-</body>
-
-</html>
+<section class="location-info">
+    <div id="locationLabel"></div>
+    <div id="hidden-country"></div>
+    <div id="hidden-area"></div>
+    <div id="hidden-city"></div>
+    <div id="hidden-lat"></div>
+    <div id="hidden-long"></div>
+    <div id="hidden-ip"></div>
+</section>
+{% endblock %}

@@ -3,7 +3,7 @@ $(document).ready(function() {
     GetGeoLocation();
 
     $('form').submit(function(e) {
-        e.preventDefault();
+        //e.preventDefault();
 
     });
 
@@ -28,6 +28,31 @@ $(document).ready(function() {
     });
 
     ApplyStarRating();
+
+
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+
+    });
+
+    $(".custom-file-input-with-pic").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        ReadURL(this);
+    });
+
+    function ReadURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#profile-pic').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 });
 
 function ApplyStarRating() {
@@ -60,6 +85,8 @@ function ApplyStarRating() {
     $('.star-5').click(function() {
         $('.star').addClass('checked');
     });
+
+
 }
 
 function GetSearchedLocation(searchText) {

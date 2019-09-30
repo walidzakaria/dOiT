@@ -1,0 +1,216 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>dOiT</title>
+    <link rel="shortcut icon" href="{% static 'img/dOiT_logo.svg' %}">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'libs/bootstrap.min.css' %}">
+
+    <!-- jQuery library -->
+    <script src="{% static 'libs/jquery.min.js' %}"></script>
+
+    <!-- Popper JS -->
+    <script src="{% static 'libs/popper.min.js' %}"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="{% static 'libs/bootstrap.min.js' %}"></script>
+
+    <!-- <link rel = "stylesheet" type = "text/css" href = "dOiT.css" />-->
+
+    <!-- Font Awesome Icon Library -->
+
+    <script src="{% static 'libs/fontawesome.js' %}"></script>
+    <script src="{% static 'libs/solid.js' %}"></script>
+
+
+
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png" sizes="16x16">
+
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- load js script -->
+    <script src="{% static 'js/script.js' %}"></script>
+
+</head>
+
+<body>
+
+    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+        <a class="navbar-brand mr-0 mr-md-2" href="{% url 'home' %}" area-label="Bootstrap">
+            <img src="{% static 'img/dOiT_logo.svg' %}" height="36px" class="d-block" viewBox="0 0 612 612" role="img" focusable="false" />
+        </a>
+
+        <div class="navbar-nav-scroll">
+            <ul class="navbar-nav bd-navbar-nav flex-row">
+
+                {% if user.is_authenticated %}
+                <li class="dropdown nav-item">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">{{ user.username }} <b class="caret"></b></a>
+                    <ul id="user-info" class="dropdown-menu" style="padding: 15px; min-width: 250px;">
+                        <a class="dropdown nav-link text-dark nav-list" href="#">Life</a>
+                        <a class="dropdown nav-link text-dark nav-list" href="{% url 'activity' %}">Activity</a>
+                        <a class="dropdown nav-link text-dark nav-list" href="{% url 'profile' %}">Profile</a>
+                        <a class="dropdown nav-link text-danger nav-list" href="{% url 'logout' %}">Sign Out</a>
+                    </ul>
+                </li>
+                {% else %}
+                <li class="dropdown nav-item">
+
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Sign in <b class="caret"></b></a>
+                    <ul id="login-form" class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+                        <li>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form id="login-form" class="form" autocomplete="off" role="form" method="post" action="{% url 'login' %}" accept-charset="UTF-8" id="login-nav">
+
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label class="sr-only" for="id_username">Username</label>
+                                            <input type="text" name="username" class="form-control" id="id_username" placeholder="Username" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="id_password">Password</label>
+                                            <input type="password" name="password" class="form-control" id="id_password" placeholder="Password" required>
+                                        </div>
+
+                                        <div>
+                                            {% if form.errors %}
+                                            <p class=" label label-danger">
+                                                Your username and password didn't match. Please try again.
+                                            </p>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-success btn-block">Login</button>
+                                        </div>
+                                        <input type="hidden" name="next" value="{{ next }}" />
+                                        <p>New user? <a href="{% url 'signup' %}">Sign up here</a>!</p>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <span class="nav-link right-span">
+
+            <ul class="navbar-nav bd-navbar-nav flex-row">
+
+                <li class="dropdown nav-item">
+                     <a id="locationLabel" href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" areahaspopup="true">Select Location<b class="caret"></b></a>
+                     <ul id="location-form" class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+                        <li id="location-list">
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <form class="form" autocomplete="off" role="form" method="post" action="login" accept-charset="UTF-8" id="location-form">
+                                    <div class="form-group autocomplete active-green-4 mb-4">
+                                       <label class="sr-only" for="select-location">Location</label>
+                                       <input type="text" class="form-control" id="select-country" placeholder="Where're you?" required />
+
+                                    </div>
+                                       <button type="submit" class="btn btn-success btn-block">OK</button>
+
+                                 </form>
+                              </div>
+                           </div>
+                        </li>
+                        <li class="divider"></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </span>
+    </header>
+
+
+
+    <main>
+        {% block content %} {% endblock %}
+
+    </main>
+
+    <footer>
+        <section>
+            <div id="PopoverContent" class="d-none">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username with two button addons" aria-describedby="button-addon1">
+                    <div class="input-group-append" id="button-addon1">
+                        <button class="btn btn-outline-primary" type="button" data-toggle="popover" data-placement="bottom" data-html="true" data-title="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Test modal</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
+                                            <div class="input-group-append" id="button-addon4">
+                                                <button class="btn btn-outline-primary" type="button" data-toggle="popover">
+                                                    <i class="fas fa-user-plus"></i>
+                                                </button>
+                                                <button class="btn btn-outline-danger" type="button">
+                                                    <i class="fas fa-user-minus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="location-info">
+            <div id="locationLabel"></div>
+            <div id="hidden-country"></div>
+            <div id="hidden-area"></div>
+            <div id="hidden-city"></div>
+            <div id="hidden-lat"></div>
+            <div id="hidden-long"></div>
+            <div id="hidden-ip"></div>
+        </section>
+    </footer>
+
+
+
+
+
+
+</body>
+
+</html>
