@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import ActivityType, Activity, Employee, Deal
+
+from .models import Profile
+
+admin.site.register(Profile)
+
+#from django.contrib import admin
+#from .models import ActivityType, Activity, Employee, Deal
 
 '''
 @admin.register(ActivityType)

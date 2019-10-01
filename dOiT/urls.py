@@ -17,6 +17,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings # new
+from django.urls import path, include # new
+from django.conf.urls.static import static # new
+
 
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import views as auth_views
@@ -27,3 +31,5 @@ urlpatterns = [
 ]
 
 
+if settings.DEBUG: # new
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

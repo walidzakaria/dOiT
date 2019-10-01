@@ -1,5 +1,12 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+GENDER_CHOICE = (
+    ('M', 'Male'),
+    ('F', 'Female')
+)
 
 
 class ActivityType(models.Model):
@@ -22,43 +29,30 @@ class Activity(models.Model):
         return self.activity
 
 
-class Employee(models.Model):
-    employee_id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    gender = models.CharField(max_length=6, default='male')
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    gender = models.CharField(max_length=1, default='M', choices=GENDER_CHOICE)
+    location = models.CharField(max_length=100, blank=True, null=True)
+    birth_date = models.DateField(null=True, blank=True)
     join_date = models.DateField(auto_now_add=True)
-    phone = models.CharField(max_length=20)
-    security_question = models.CharField(max_length=100)
-    security_answer = models.CharField(max_length=150)
+    activity = models.CharField(max_length=100, null=True, blank=True)
+    phone = models.CharField(max_length=20, null=True, blank=True)
+    lat = models.CharField(max_length=30, null=True, blank=True)
+    lon = models.CharField(max_length=30, null=True, blank=True)
+    score = models.DecimalField(max_digits=10, decimal_places=4, null=True, blank=True)
+    description = models.CharField(max_length=250, null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='images/', default='images/default-profile.png')
 
     def __str__(self):
         return self.user.username
 
 
-class EmployeeActivity(models.Model):
-    employee_activity_id = models.BigAutoField(primary_key=True)
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    location = models.CharField(max_length=200)
-    lat = models.CharField(max_length=30)
-    lon = models.CharField(max_length=30)
-    score = models.DecimalField(max_digits=10, decimal_places=4)
-    description = models.CharField(max_length=250)
-    working_days = models.CharField(max_length=50)
-    #start_hour = models.TimeField()
-    #end_hour = models.TimeField()
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
 
 
-class Deal(models.Model):
-    deal_id = models.BigAutoField(primary_key=True)
-    deal_time = models.DateTimeField(auto_now_add=True)
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    guest = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.CharField(max_length=5)
-    rating = models.IntegerField()
-    comment = models.CharField(max_length=250)
-
-    def __str__(self):
-        return f'id: {self.deal_id}: user: {self.employee.employee_id}'
-
-
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
