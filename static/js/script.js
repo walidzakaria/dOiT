@@ -21,11 +21,17 @@ $(document).ready(function() {
         GetSuggestions(search, "activity-location");
     });
 
+    $('#id_location').on('input', function(e) {
+        let search = $('#id_location').val();
+        GetSuggestions(search, "id_location");
+    });
+
     $('#location-form').submit(function(e) {
         let searchText;
         searchText = $('#select-country').val();
         GetSearchedLocation(searchText);
     });
+
 
     ApplyStarRating();
 

@@ -3,3 +3,4 @@ db.*
 \.idea/
 *.pyc
 */__pycache__/
+media/images/*

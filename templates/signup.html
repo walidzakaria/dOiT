@@ -16,10 +16,7 @@
                         {% csrf_token %}
                         <div class="row register-form">
                             <div class="col-md-6">
-                                {{ user_form|crispy }}
-                            </div>
-                            <div class="col-md-6">
-                                {{ profile_form|crispy }}
+                                {{ form|crispy }}
                                 <input type="submit" class="btnRegister" value="Register" />
 
                             </div>
