@@ -2,10 +2,10 @@ $(document).ready(function() {
 
     GetGeoLocation();
 
-    $('form').submit(function(e) {
-        //e.preventDefault();
+    //$('.user-login-form').submit(function(e) {
+    //    e.preventDefault();
 
-    });
+    //});
 
     $('.dropdown-menu').find('form').click(function(e) {
         e.stopPropagation();
@@ -30,6 +30,9 @@ $(document).ready(function() {
         let searchText;
         searchText = $('#select-country').val();
         GetSearchedLocation(searchText);
+        $('#location-form').removeClass('show');
+        $('#location-list').removeClass('show');
+        e.preventDefault();
     });
 
 
