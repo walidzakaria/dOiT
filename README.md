@@ -62,8 +62,8 @@ If he accepts the deal, he can do the job for your, and once he's done, you can 
 Once you sign up, you will be logged-in and taken to your profile to fill in more details about yourself, and your activity if you want.
 
 ![profile](https://github.com/walidzakaria/dOiT/blob/master/screenshots/09.profile1.jpg "profile")
-![profile](https://github.com/walidzakaria/dOiT/blob/master/screenshots/09.profile2.jpg "profile")
-![profile](https://github.com/walidzakaria/dOiT/blob/master/screenshots/09.profile2.jpg "profile")
+![profile2](https://github.com/walidzakaria/dOiT/blob/master/screenshots/10.profile2.jpg "profile2")
+![profile3](https://github.com/walidzakaria/dOiT/blob/master/screenshots/11.profile3.jpg "profile3")
 
 You can also move to the different pages if you're logged-in:
 
