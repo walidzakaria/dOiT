@@ -7,7 +7,7 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h3 class="register-heading">Your Profile</h3>
-                    <form method="post" enctype="multipart/form-data">
+                    <form method="post" enctype="multipart/form-data" autocomplete="off">
                         {% csrf_token %}
                         <div class="row register-form">
 
@@ -16,7 +16,9 @@
                                 <div id="profile-container">
                                     <img id="profile-pic" class="mx-auto d-block img-thumbnail img-fluid rounded-circle" src="{{ user.profile.profile_picture.url }}" alt="profile for {{ user.username }}" />
                                 </div>
+                                <form>
 
+                                </form>
                                 {{ user_form|crispy }} {{ profile_form|crispy }}
                                 <input type="submit" class="btnRegister" value="Register" />
                             </div>

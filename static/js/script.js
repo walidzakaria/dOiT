@@ -2,11 +2,6 @@ $(document).ready(function() {
 
     GetGeoLocation();
 
-    //$('.user-login-form').submit(function(e) {
-    //    e.preventDefault();
-
-    //});
-
     $('.dropdown-menu').find('form').click(function(e) {
         e.stopPropagation();
     });
@@ -136,7 +131,7 @@ function GetSearchedLocation(searchText) {
 
 };
 
-function GetSuggestions(keywords, objectName) {
+function GetSuggestions(keywords, objectName, sticky) {
     keywords = keywords.replace(' ', '+');
     keywords = encodeURIComponent(keywords.trim());
 

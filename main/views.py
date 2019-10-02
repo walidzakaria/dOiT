@@ -50,25 +50,6 @@ def profile(request):
         'profile_form': profile_form
     })
 
-'''
-def signup(request):
-    if request.method == 'POST':
-        user_form = UserCreationForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_profile = profile_form.save()
-            new_user = user_form.save(commit=False)
-            new_user.set_password(user_form.cleaned_data['password'])
-            new_user.profile = user_profile
-            print(new_user)
-            new_user.save()
-            return redirect('home')
-    else:
-        user_form = UserCreationForm()
-        profile_form = ProfileForm()
-    return render(request, 'signup.html', {'user_form': user_form, 'profile_form': profile_form})
-'''
-
 
 def signup(request):
     form = SignUpForm(request.POST)
