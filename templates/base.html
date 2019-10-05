@@ -47,7 +47,9 @@
     <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
         {% if user.is_authenticated %}
         <div>
-            <img class="small-profile-pic" style="height: 40px; width: 40px; border-radius: 50%;" src="{{ user.profile.profile_picture.url }}" onerror="this.src='{% static 'img/default-profile.png' %}';" alt="profile for {{ user.username }}" />
+            <a href="{% url 'home' %}">
+                <img class="small-profile-pic" style="height: 40px; width: 40px; border-radius: 50%;" src="{{ user.profile.profile_picture.url }}" onerror="this.src='{% static 'img/default-profile.png' %}';" alt="profile for {{ user.username }}" />
+            </a>
         </div>
         {% else %}
             <a class="navbar-brand mr-0 mr-md-2" href="{% url 'home' %}" area-label="Bootstrap">
@@ -63,6 +65,7 @@
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">{{ user.username }} <b class="caret"></b></a>
                     <ul id="user-info" class="dropdown-menu" style="padding: 15px; min-width: 250px;">
+                        <a class="dropdown nav-link text-dark nav-list" href="{% url 'home' %}">Home</a>
                         <a class="dropdown nav-link text-dark nav-list" href="#">Life</a>
                         <a class="dropdown nav-link text-dark nav-list" href="{% url 'activity' %}">Activity</a>
                         <a class="dropdown nav-link text-dark nav-list" href="{% url 'profile' %}">Profile</a>
