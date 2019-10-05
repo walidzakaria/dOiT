@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.shortcuts import render, redirect
+from cloudinary.forms import cl_init_js_callbacks
 
 
 from django.urls import reverse_lazy
@@ -33,6 +34,7 @@ def login(request):
 @login_required
 @transaction.atomic
 def profile(request):
+
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)

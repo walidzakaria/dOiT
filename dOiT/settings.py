@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,15 +31,15 @@ ALLOWED_HOSTS = ['herokudjangoapp.herokuapp.com',
                  'doit9.herokuapp.com',
                  '127.0.0.1']
 
-#EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_HOST_USER = 'walidpianooo@gmail.com'
-#EMAIL_HOST_PASSWORD = 'wwwwww'
-#EMAIL_PORT = '587'
-#EMAIL_USE_TLS = True
-#DEFAULT_FROM_EMAIL = 'Walid <walidpianooo@gmail.com>'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'walidpianooo@gmail.com'
+# EMAIL_HOST_PASSWORD = 'wwwwww'
+# EMAIL_PORT = '587'
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'Walid <walidpianooo@gmail.com>'
 
-#ADMINS = [('Walid', EMAIL_HOST_USER)]
-#MANAGERS = ADMINS
+# ADMINS = [('Walid', EMAIL_HOST_USER)]
+# MANAGERS = ADMINS
 
 
 # Application definition
@@ -51,6 +54,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'main',
     'crispy_forms',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -95,10 +99,11 @@ DATABASES = {
 }
 
 import dj_database_url
-prod_db  =  dj_database_url.config()
+
+prod_db = dj_database_url.config()
 DATABASES['default'].update(prod_db)
 
-#DATABASES = {
+# DATABASES = {
 #    "default": {
 #        "ENGINE": "django.db.backends.postgresql_psycopg2",
 #        "NAME": "d20kmhhatbl1j",
@@ -107,7 +112,7 @@ DATABASES['default'].update(prod_db)
 #        "HOST": "ec2-107-20-168-237.compute-1.amazonaws.com",
 #        "PORT": "5432",
 #    }
-#}
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -153,7 +158,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 #  Add configuration for static files storage using whitenoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
@@ -175,3 +179,8 @@ REST_FRAMEWORK = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+cloudinary.config(
+    cloud_name="doit",
+    api_key="181346566272277",
+    api_secret="OLrMmNX1x6l027t4BachkoxVfns"
+)
