@@ -13,15 +13,15 @@
                         <div class="row register-form">
 
 
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div id="profile-container">
-                                    <img id="profile-pic" class="mx-auto d-block img-thumbnail img-fluid rounded-circle" src="{{ user.profile.profile_picture.url }}" alt="profile for {{ user.username }}" />
+                                    <img class="profile-pic" class="mx-auto d-block img-thumbnail img-fluid rounded-circle" style="height: 230px; width: 180px;" src="{{ user.profile.profile_picture.url }}" onerror="this.src='{% static 'img/default-profile.png' %}';" alt="profile for {{ user.username }}" />
                                 </div>
                                 <form>
 
                                 </form>
                                 {{ user_form|crispy }} {{ profile_form|crispy }}
-                                <input type="submit" class="btnRegister" value="Register" />
+                                <input type="submit" class="btnRegister" value="Save" />
                             </div>
 
                         </div>

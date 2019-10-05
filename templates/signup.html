@@ -15,7 +15,7 @@
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="row register-form">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 {{ form|crispy }}
                                 <input type="submit" class="btnRegister" value="Register" />
 

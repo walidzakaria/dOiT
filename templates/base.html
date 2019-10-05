@@ -47,7 +47,7 @@
     <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
         {% if user.is_authenticated %}
         <div>
-            <img id="small-profile-pic" style="height: 40px; width: 40px; border-radius: 50%;" src="{{ user.profile.profile_picture.url }}" alt="profile for {{ user.username }}" />
+            <img class="small-profile-pic" style="height: 40px; width: 40px; border-radius: 50%;" src="{{ user.profile.profile_picture.url }}" onerror="this.src='{% static 'img/default-profile.png' %}';" alt="profile for {{ user.username }}" />
         </div>
         {% else %}
             <a class="navbar-brand mr-0 mr-md-2" href="{% url 'home' %}" area-label="Bootstrap">
