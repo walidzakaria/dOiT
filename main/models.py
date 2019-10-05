@@ -16,6 +16,7 @@ REQUEST_CHOICE = (
     ('F', 'Finished')
 )
 
+
 class ActivityType(models.Model):
     activity_type_id = models.AutoField(primary_key=True)
     activity_type = models.CharField(max_length=100, db_index=True)
@@ -84,6 +85,7 @@ class UserActivity(models.Model):
 class UserActivityAlbum(models.Model):
     user_activity = models.ForeignKey(UserActivity, on_delete=models.CASCADE)
     photo = CloudinaryField('image')
+
 
 class Deal(models.Model):
     request_from = models.ForeignKey(User, on_delete=models.CASCADE)

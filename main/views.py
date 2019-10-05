@@ -1,10 +1,15 @@
 #!/usr/bin/env python
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.shortcuts import render, redirect
+from rest_framework import viewsets
+from .models import ActivityType, Activity, Profile, UserActivity, UserActivityAlbum
+
+from .serializers import UserSerializer, ActivityTypeSerializer
 from cloudinary.forms import cl_init_js_callbacks
 
 
@@ -70,3 +75,16 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+
+
+class ActivityTypeViewSet(viewsets.ModelViewSet):
+    queryset = ActivityType.objects.all()
+    serializer_class = ActivityTypeSerializer

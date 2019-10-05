@@ -1,13 +1,16 @@
 from rest_framework import serializers
-from .models import ActivityType, Activity, Deal
+from django.contrib.auth.models import User, Group
+from .models import ActivityType, Activity, UserActivity, Profile, UserActivityAlbum, Deal
 from django_filters import rest_framework as filters
 
 
-#class SearchResult(serializers.ModelSerializer):
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
 
-    #rating = StarRatingSerializer(many=False, read_only=True)
-    #city = CitySerializer(many=False, read_only=True)
 
- #   class Meta:
-  #      model = Employee
-   #     fields = '__all__'
+class ActivityTypeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ActivityType
+        fields = '__all__'

@@ -5,11 +5,10 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from rest_framework.utils import json
 
-from .models import ActivityType, Activity, Employee, Deal
+from .models import ActivityType
 
 
-def show_employee(request):
-    employees = Employee.objects.all()
-    result = list(employees)
-
+def show_activity_type(request):
+    activity_type = ActivityType.objects.all().values('activity_type_id', 'activity_type')
+    result = list(activity_type)
     return JsonResponse(result, safe=False)
