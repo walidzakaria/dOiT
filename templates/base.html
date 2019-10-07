@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{% static 'libs/bootstrap.min.css' %}">
 
     <!-- jQuery library -->
-    <script src="{% static 'libs/jquery.min.js' %}"></script>
+    <script src="{% static 'libs/jquery-3.4.1.min.js' %}"></script>
 
     <!-- Popper JS -->
     <script src="{% static 'libs/popper.min.js' %}"></script>
@@ -31,14 +31,22 @@
     <script src="{% static 'libs/solid.js' %}"></script>
 
 
-
     <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png" sizes="16x16">
+
+    <!-- For Easy auto complete -->
+    <script src="{% static 'libs/jquery.easy-autocomplete.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'libs/easy-autocomplete.min.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/easy-autocomplete.themes.min.css' %}">
+
 
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- load js script -->
     <script src="{% static 'js/script.js' %}"></script>
+
+
+
 
 </head>
 
@@ -52,9 +60,9 @@
             </a>
         </div>
         {% else %}
-            <a class="navbar-brand mr-0 mr-md-2" href="{% url 'home' %}" area-label="Bootstrap">
-                <img src="{% static 'img/dOiT_logo.svg' %}" height="36px" class="d-block" viewBox="0 0 612 612" role="img" focusable="false" />
-            </a>
+        <a class="navbar-brand mr-0 mr-md-2" href="{% url 'home' %}" area-label="Bootstrap">
+            <img src="{% static 'img/dOiT_logo.svg' %}" height="36px" class="d-block" viewBox="0 0 612 612" role="img" focusable="false" />
+        </a>
         {% endif %}
 
 

@@ -1,7 +1,8 @@
 from rest_framework import routers
-from .views import UserViewSet, ActivityTypeViewSet
-
+from .viewsets import UserViewSet, ActivityTypeViewSet, ActivityViewSet, UserActivityViewSet, UserFullActivityViewSet, GetActivityListByUser
 
 router = routers.DefaultRouter()
-#router.register(r'users', UserViewSet)
-router.register(r'users-aaa', ActivityTypeViewSet)
+router.register(r'activity-type', ActivityTypeViewSet)
+router.register(r'activity', ActivityViewSet)
+router.register(r'user-activity', UserActivityViewSet)
+router.register(r'user-full-activity', UserFullActivityViewSet)

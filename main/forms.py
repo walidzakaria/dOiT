@@ -29,3 +29,29 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+
+
+class ActivityTypeForm(forms.ModelForm):
+    class Meta:
+        model = ActivityType
+        fields = ('activity_type',)
+
+
+class ActivityForm(forms.ModelForm):
+    class Meta:
+        model = Activity
+        fields = ('activity',)
+
+
+class UserActivityForm(forms.ModelForm):
+    class Meta:
+        model = UserActivity
+        fields = ('location', 'lat', 'lon',
+                  'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday',
+                  'open_from', 'open_to')
+
+
+class UserActivityAlbumForm(forms.ModelForm):
+    class Meta:
+        model = UserActivityAlbum
+        fields = ('photo',)

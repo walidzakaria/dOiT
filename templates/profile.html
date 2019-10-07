@@ -1,5 +1,4 @@
-{% extends 'base.html' %} {% block content %} {% load staticfiles %} {% load crispy_forms_tags %}
-{% load cloudinary %}
+{% extends 'base.html' %} {% block content %} {% load staticfiles %} {% load crispy_forms_tags %} {% load cloudinary %}
 <div class="container register">
     <div class="row">
 
@@ -15,7 +14,8 @@
 
                             <div class="col-md-12">
                                 <div id="profile-container">
-                                    <img class="profile-pic" class="mx-auto d-block img-thumbnail img-fluid rounded-circle" style="height: 230px; width: 180px;" src="{{ user.profile.profile_picture.url }}" onerror="this.src='{% static 'img/default-profile.png' %}';" alt="profile for {{ user.username }}" />
+                                    <img class="profile-pic" class="mx-auto d-block img-thumbnail img-fluid rounded-circle" style="height: 230px; width: 180px;" src="{{ user.profile.profile_picture.url }}" onerror="this.src='{% static 'img/default-profile.png' %}';" alt="profile for {{ user.username }}"
+                                    />
                                 </div>
                                 <form>
 
@@ -44,4 +44,6 @@
     <div id="hidden-long"></div>
     <div id="hidden-ip"></div>
 </section>
+
+
 {% endblock %}

@@ -2,6 +2,22 @@ $(document).ready(function() {
 
     GetGeoLocation();
 
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+
     $('.dropdown-menu').find('form').click(function(e) {
         e.stopPropagation();
     });
@@ -57,7 +73,68 @@ $(document).ready(function() {
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+    // var options = {
+    //    url: function(phrase) {
+    //        return "/api/activity-type/";
+    //    },
+
+    //    getValue: "results.activity_type"
+    //};
+
+    // $("#activity-type").easyAutocomplete(options);
+    $('#add-new-activity').submit(function(e) {
+        e.preventDefault();
+        AddNewActivityType(csrftoken);
+    });
 });
+
+function AddNewActivityType(token) {
+    let activityType = $('#activity-type').val();
+
+    $.ajax({
+        type: 'POST',
+        url: '/api/activity-type/',
+        dataType: 'application/json',
+        data: {
+            "activity_type": activityType
+        },
+        success: function(data) {
+            //alert(response.responseText);
+            $('h3').text('walid');
+            alert(data);
+            console.log(data.responseText);
+            //console.log(response.responseText);
+
+            //AddNewActivity(response.activity_type_id, token);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+
+}
+
+function AddNewActivity(activityType, token) {
+    let activity = $('#activity-name').val();
+    $.ajax({
+        type: 'POST',
+        url: '/api/activity/',
+        dataType: 'application/json',
+        data: {
+            "activity_type": activityType,
+            "activity": activity
+        },
+        success: function(response) {
+            console.log(response);
+            console.log('2');
+            //AddNewActivity(response.activity_type_id, token);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
 
 function ApplyStarRating() {
     $('.star-1').click(function() {

@@ -9,7 +9,8 @@ from django.shortcuts import render, redirect
 from rest_framework import viewsets
 from .models import ActivityType, Activity, Profile, UserActivity, UserActivityAlbum
 
-from .serializers import UserSerializer, ActivityTypeSerializer
+from .serializers import UserSerializer, ActivityTypeSerializer, ActivitySerializer, UserActivitySerializer, \
+    UserFullActivitySerializer
 from cloudinary.forms import cl_init_js_callbacks
 
 
@@ -17,19 +18,25 @@ from django.urls import reverse_lazy
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 
-#from .models import City, Country, Hotel, HotelChain, Season, StarRating, Team
+# from .models import City, Country, Hotel, HotelChain, Season, StarRating, Team
 import datetime
 from django.db.models import Q
 
-from main.forms import UserForm, ProfileForm, SignUpForm
+from main.forms import UserForm, ProfileForm, SignUpForm, ActivityTypeForm, UserActivityForm, UserCreationForm, \
+    UserActivityAlbumForm, ActivityForm
 
 
 def home(request):
     return render(request, 'index.html')
 
 
+@login_required
+@transaction.atomic
 def activity(request):
-    return render(request, 'activity.html')
+    activities = UserActivity.objects.filter(user=request.user).all()
+    return render(request, 'activity.html', {
+        'activities': activities
+    })
 
 
 def login(request):
@@ -75,16 +82,3 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-
-
-class ActivityTypeViewSet(viewsets.ModelViewSet):
-    queryset = ActivityType.objects.all()
-    serializer_class = ActivityTypeSerializer

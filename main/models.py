@@ -18,7 +18,7 @@ REQUEST_CHOICE = (
 
 
 class ActivityType(models.Model):
-    activity_type_id = models.AutoField(primary_key=True)
+    activity_type_id = models.BigAutoField(primary_key=True)
     activity_type = models.CharField(max_length=100, db_index=True)
 
     def __str__(self):
@@ -26,7 +26,7 @@ class ActivityType(models.Model):
 
 
 class Activity(models.Model):
-    activity_id = models.AutoField(primary_key=True)
+    activity_id = models.BigAutoField(primary_key=True)
     activity_type = models.ForeignKey(ActivityType, on_delete=models.CASCADE)
     activity = models.CharField(max_length=100, db_index=True)
 
@@ -47,13 +47,6 @@ class Profile(models.Model):
     score = models.DecimalField(max_digits=10, decimal_places=4, null=True, blank=True)
     profile_picture = CloudinaryField('image')
 
-    # activity = models.CharField(max_length=100, null=True, blank=True)
-    # lat = models.CharField(max_length=30, null=True, blank=True)
-    # lon = models.CharField(max_length=30, null=True, blank=True)
-
-    # description = models.CharField(max_length=250, null=True, blank=True)
-    # profile_picture = models.ImageField(upload_to='images/', default='images/default-profile.png')
-
     def __str__(self):
         return self.user.username
 
@@ -66,11 +59,12 @@ def update_profile_signal(sender, instance, created, **kwargs):
 
 
 class UserActivity(models.Model):
+    user_activity_id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
     location = models.CharField(max_length=200)
-    lat = models.CharField(max_length=100)
-    lon = models.CharField(max_length=100)
+    lat = models.FloatField()
+    lon = models.FloatField()
     monday = models.BooleanField(default=True)
     tuesday = models.BooleanField(default=True)
     wednesday = models.BooleanField(default=True)
@@ -80,14 +74,17 @@ class UserActivity(models.Model):
     sunday = models.BooleanField(default=False)
     open_from = models.TimeField()
     open_to = models.TimeField()
+    description = models.CharField(max_length=350)
 
 
 class UserActivityAlbum(models.Model):
+    user_activity_album_id = models.BigAutoField(primary_key=True)
     user_activity = models.ForeignKey(UserActivity, on_delete=models.CASCADE)
     photo = CloudinaryField('image')
 
 
 class Deal(models.Model):
+    deal_id = models.BigAutoField(primary_key=True)
     request_from = models.ForeignKey(User, on_delete=models.CASCADE)
     request_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name="request_to")
     request_date = models.DateTimeField(auto_now_add=True)
