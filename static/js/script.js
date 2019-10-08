@@ -95,18 +95,14 @@ function AddNewActivityType(token) {
     $.ajax({
         type: 'POST',
         url: '/api/activity-type/',
-        dataType: 'application/json',
+        dataType: 'json',
         data: {
             "activity_type": activityType
         },
         success: function(data) {
-            //alert(response.responseText);
             $('h3').text('walid');
-            alert(data);
-            console.log(data.responseText);
-            //console.log(response.responseText);
-
-            //AddNewActivity(response.activity_type_id, token);
+            console.log(data);
+            AddNewActivity(data.activity_type_id, token);
         },
         error: function(error) {
             console.log(error);
@@ -120,14 +116,14 @@ function AddNewActivity(activityType, token) {
     $.ajax({
         type: 'POST',
         url: '/api/activity/',
-        dataType: 'application/json',
+        dataType: 'json',
         data: {
             "activity_type": activityType,
             "activity": activity
         },
-        success: function(response) {
-            console.log(response);
-            console.log('2');
+        success: function(data) {
+            console.log(data);
+            AddUserActivity(data.activity_id, token);
             //AddNewActivity(response.activity_type_id, token);
         },
         error: function(error) {
@@ -135,6 +131,22 @@ function AddNewActivity(activityType, token) {
         }
     });
 }
+
+function AddUserActivity(activity, token) {
+    let location = $('#activity-location').val();
+    let mon = $('#mon').prop("checked");
+    let tue = $('#tue').prop("checked");
+    let wed = $('#wed').prop("checked");
+    let thu = $('#thu').prop("checked");
+    let fri = $('#fri').prop("checked");
+    let sat = $('#sat').prop("checked");
+    let sun = $('#sun').prop("checked");
+    let timeFrom = $('#time-from').val();
+    let timeTo = $('#time-to').val();
+    let description = $('#description').text();
+    alert(description);
+    alert(timeTo);
+};
 
 function ApplyStarRating() {
     $('.star-1').click(function() {
@@ -197,7 +209,6 @@ function GetSearchedLocation(searchText) {
             $('#hidden-city').text(locationList[0]);
             $('#hidden-lat').text(userLat);
             $('#hidden-long').text(userLong);
-
             $('#location-form').removeClass('show');
             $('#location-list').removeClass('show');
         },

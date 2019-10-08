@@ -8,15 +8,19 @@ from django.db import transaction
 from django.shortcuts import render, redirect
 from rest_framework import viewsets
 from .models import ActivityType, Activity, Profile, UserActivity, UserActivityAlbum
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+
 
 from .serializers import UserSerializer, ActivityTypeSerializer, ActivitySerializer, UserActivitySerializer, \
-    UserFullActivitySerializer
+    UserFullActivitySerializer, ActivityFullSerializer
 from cloudinary.forms import cl_init_js_callbacks
 
 
 from django.urls import reverse_lazy
 from django.views.decorators.cache import never_cache
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 
 # from .models import City, Country, Hotel, HotelChain, Season, StarRating, Team
 import datetime
@@ -82,3 +86,15 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+
+@csrf_exempt
+def user_activity(request):
+
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = UserFullActivitySerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
