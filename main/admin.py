@@ -1,8 +1,12 @@
 from django.contrib import admin
 
-from .models import Profile
+from .models import Profile, ActivityType, Activity, UserActivity, UserActivityAlbum
 
 admin.site.register(Profile)
+admin.site.register(ActivityType)
+admin.site.register(Activity)
+admin.site.register(UserActivity)
+admin.site.register(UserActivityAlbum)
 
 #from django.contrib import admin
 #from .models import ActivityType, Activity, Employee, Deal

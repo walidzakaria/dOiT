@@ -1,4 +1,5 @@
-{% extends 'base.html' %} {% block content %} {% load staticfiles %} {% load cloudinary %}
+{% extends 'base.html' %} {% block content %} {% load staticfiles %} {% load cloudinary %} {% load crispy_forms_tags %}
+
 <div class="container register">
     <div class="row">
 
@@ -19,56 +20,10 @@
                             </div>
                             <div id="add_activity" class="collapse" data-parent="#accordion">
                                 <div class="card-body">
-                                    {% csrf_token %}
-                                    <form id="add-new-activity">
+                                    <form method="post">
                                         <div class="row register-form">
                                             <div class="col-md-12">
-
-                                                <div class="form-group">
-                                                    <input type="text" id="activity-type" class="form-control with-selection" placeholder="Activity Type *" value="" required />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <input type="text" id="activity-name" class="form-control" placeholder="Activity Name *" value="" required />
-                                                </div>
-
-                                                <div class="form-group autocomplete active-green-4 mb-4">
-                                                    <input type="text" class="form-control" id="activity-location" autocomplete="off" placeholder="Activity Location *" required />
-                                                </div>
-
-                                                <div class="form-group autocomplete active-green-4 mb-4">
-                                                    <input type="text" class="form-control" id="activity-lat" autocomplete="off" placeholder="Activity lat" required />
-                                                </div>
-
-                                                <div class="form-group autocomplete active-green-4 mb-4">
-                                                    <input type="text" class="form-control" id="activity-lon" autocomplete="off" placeholder="Activity lon" required />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="checkbox-inline"><input id="mon" type="checkbox" value="" checked>Mon</label>
-                                                    <label class="checkbox-inline"><input id="tue" type="checkbox" value="" checked>Tue</label>
-                                                    <label class="checkbox-inline"><input id="wed" type="checkbox" value="" checked>Wed</label>
-                                                    <label class="checkbox-inline"><input id="thu" type="checkbox" value="" checked>Thu</label>
-                                                    <label class="checkbox-inline"><input id="fri" type="checkbox" value="" checked>Fri</label>
-                                                    <label class="checkbox-inline"><input id="sat" type="checkbox" value="">Sat</label>
-                                                    <label class="checkbox-inline"><input id="sun" type="checkbox" value="">Sun</label>
-                                                </div>
-
-
-                                                <div class="form-group autocomplete active-green-4 mb-4">
-                                                    <label for="time-from">Time from:</label>
-                                                    <input type="time" class="form-control" id="time-from" autocomplete="off" placeholder="Time from" required />
-                                                </div>
-
-                                                <div class="form-group autocomplete active-green-4 mb-4">
-                                                    <label for="time-to">Time to:</label>
-                                                    <input type="time" class="form-control" id="time-to" autocomplete="off" placeholder="Time to" required />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="comment">Description:</label>
-                                                    <textarea id="description" class="form-control" rows="5" id="comment"></textarea>
-                                                </div>
+                                                {% csrf_token %} {{ activity_type_form|crispy }} {{ activity_form|crispy }} {{ user_activity_form|crispy }}
 
                                             </div>
 
@@ -224,6 +179,15 @@
     <div id="hidden-ip"></div>
 </section>
 
-
+<script>
+    $("#id_open_from").bootstrapMaterialDatePicker({
+        date: false,
+        format: 'HH:mm'
+    });
+    $("#id_open_to").bootstrapMaterialDatePicker({
+        date: false,
+        format: 'HH:mm'
+    });
+</script>
 
 {% endblock %}

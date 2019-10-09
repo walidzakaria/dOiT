@@ -87,6 +87,8 @@ $(document).ready(function() {
         e.preventDefault();
         AddNewActivityType(csrftoken);
     });
+
+
 });
 
 function AddNewActivityType(token) {

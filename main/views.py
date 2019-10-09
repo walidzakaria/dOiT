@@ -12,11 +12,9 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 
-
 from .serializers import UserSerializer, ActivityTypeSerializer, ActivitySerializer, UserActivitySerializer, \
     UserFullActivitySerializer, ActivityFullSerializer
 from cloudinary.forms import cl_init_js_callbacks
-
 
 from django.urls import reverse_lazy
 from django.views.decorators.cache import never_cache
@@ -34,15 +32,6 @@ def home(request):
     return render(request, 'index.html')
 
 
-@login_required
-@transaction.atomic
-def activity(request):
-    activities = UserActivity.objects.filter(user=request.user).all()
-    return render(request, 'activity.html', {
-        'activities': activities
-    })
-
-
 def login(request):
     return render(request, 'login.html')
 
@@ -50,7 +39,6 @@ def login(request):
 @login_required
 @transaction.atomic
 def profile(request):
-
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
@@ -88,13 +76,69 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
-@csrf_exempt
-def user_activity(request):
-
+# @csrf_exempt
+@login_required
+@transaction.atomic
+def activity(request):
     if request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = UserFullActivitySerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+
+        activity_type_form = ActivityTypeForm(request.POST)
+        activity_form = ActivityForm(request.POST)
+        user_activity_form = UserActivityForm(request.POST)
+
+        if activity_type_form.is_valid() and activity_form.is_valid() and user_activity_form.is_valid():
+
+            existing_activity_type = ActivityType.objects.filter(
+                activity_type=activity_type_form.cleaned_data['activity_type']).first()
+            if not existing_activity_type:
+                existing_activity_type = ActivityType(activity_type=activity_type_form.cleaned_data['activity_type'])
+                existing_activity_type.save()
+
+            activity_form.cleaned_data['activity_type'] = existing_activity_type
+
+            existing_activity = Activity.objects.filter(activity_type=existing_activity_type,
+                                                        activity=activity_form.cleaned_data['activity']).first()
+            if not existing_activity:
+                existing_activity = Activity(activity_type=existing_activity_type,
+                                             activity=activity_form.cleaned_data['activity'])
+                existing_activity.save()
+
+            user_activity_form.cleaned_data['user'] = request.user
+            user_activity_form.cleaned_data['activity'] = existing_activity
+            print(existing_activity.activity_id)
+
+            user_activity = UserActivity(user=request.user, activity=existing_activity,
+                                         location=user_activity_form.cleaned_data['location'],
+                                         lat=user_activity_form.cleaned_data['lat'],
+                                         lon=user_activity_form.cleaned_data['lon'],
+                                         monday=user_activity_form.cleaned_data['monday'],
+                                         tuesday=user_activity_form.cleaned_data['tuesday'],
+                                         wednesday=user_activity_form.cleaned_data['wednesday'],
+                                         thursday=user_activity_form.cleaned_data['thursday'],
+                                         friday=user_activity_form.cleaned_data['friday'],
+                                         saturday=user_activity_form.cleaned_data['saturday'],
+                                         sunday=user_activity_form.cleaned_data['sunday'],
+                                         open_from=user_activity_form.cleaned_data['open_from'],
+                                         open_to=user_activity_form.cleaned_data['open_to'],
+                                         description=user_activity_form.cleaned_data['description'])
+
+            user_activity.save()
+            print('yesssss')
+            return redirect('activity')
+
+        else:
+            print('noooooooo')
+            messages.error(request, 'invalid input!')
+            return redirect('activity')
+
+    elif request.method == 'GET':
+        activities = UserActivity.objects.filter(user=request.user).all()
+        activity_type_form = ActivityTypeForm()
+        activity_form = ActivityForm()
+        user_activity_form = UserActivityForm()
+        return render(request, 'activity.html', {
+            'activities': activities,
+            'activity_type_form': activity_type_form,
+            'activity_form': activity_form,
+            'user_activity_form': user_activity_form
+        })

@@ -3,6 +3,7 @@ from django.contrib.contenttypes import forms
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.forms import Textarea, widgets
 
 
 from .models import *
@@ -48,7 +49,10 @@ class UserActivityForm(forms.ModelForm):
         model = UserActivity
         fields = ('location', 'lat', 'lon',
                   'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday',
-                  'open_from', 'open_to')
+                  'open_from', 'open_to', 'description')
+        widgets = {
+            'description': Textarea(attrs={'cols': 80, 'rows': 3}),
+        }
 
 
 class UserActivityAlbumForm(forms.ModelForm):
