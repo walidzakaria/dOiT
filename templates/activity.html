@@ -20,7 +20,7 @@
                             </div>
                             <div id="add_activity" class="collapse" data-parent="#accordion">
                                 <div class="card-body">
-                                    <form method="post">
+                                    <form method="post" autocomplete="off">
                                         <div class="row register-form">
                                             <div class="col-md-12">
                                                 {% csrf_token %} {{ activity_type_form|crispy }} {{ activity_form|crispy }} {{ user_activity_form|crispy }}
@@ -178,6 +178,7 @@
     <div id="hidden-long"></div>
     <div id="hidden-ip"></div>
 </section>
+
 
 <script>
     $("#id_open_from").bootstrapMaterialDatePicker({

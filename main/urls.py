@@ -5,7 +5,7 @@ from django.conf.urls import url, include
 from rest_framework import routers
 
 from main.viewsets import GetActivityListByUser
-from .views import home, signup, profile, activity
+from .views import home, signup, profile, activity, ActivityTypeAutocomplete
 from .routers import router
 from .api import show_activity_type
 
@@ -18,4 +18,5 @@ urlpatterns = [
     url(r'^activity$', activity, name='activity'),
     url(r'^api/', include(router.urls)),
     url(r'^current-user-activity/$', GetActivityListByUser.as_view()),
+    url(r'^activity-type-autocomplete/$', ActivityTypeAutocomplete.as_view(create_field='name'), name='activity-type-autocomplete'),
 ]

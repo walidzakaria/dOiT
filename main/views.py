@@ -11,6 +11,8 @@ from .models import ActivityType, Activity, Profile, UserActivity, UserActivityA
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
+from dal import autocomplete
+
 
 from .serializers import UserSerializer, ActivityTypeSerializer, ActivitySerializer, UserActivitySerializer, \
     UserFullActivitySerializer, ActivityFullSerializer
@@ -142,3 +144,15 @@ def activity(request):
             'activity_form': activity_form,
             'user_activity_form': user_activity_form
         })
+
+
+class ActivityTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return ActivityType.objects.none()
+
+        qs = ActivityType.objects.all()
+        if self.q:
+            qs = qs.filter(name__isstartwith=self.q)
+
+        return qs

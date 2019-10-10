@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'main',
     'crispy_forms',
     'cloudinary',
+    'dal',
+    'dal_select2',
 ]
 
 MIDDLEWARE = [
