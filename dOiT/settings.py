@@ -186,5 +186,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 cloudinary.config(
     cloud_name="doit",
     api_key="181346566272277",
-    api_secret="OLrMmNX1x6l027t4BachkoxVfns"
+    api_secret="OLrMmNX1x6l027t4BachkoxVfns",
+    secure=True,
 )
