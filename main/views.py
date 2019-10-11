@@ -129,7 +129,7 @@ def activity(request):
             return redirect('activity')
 
         else:
-            print('noooooooo')
+            print(user_activity_form.errors)
             messages.error(request, 'invalid input!')
             return redirect('activity')
 
@@ -169,6 +169,5 @@ class ActivityAutocomplete(autocomplete.Select2QuerySetView):
             activity_type = ActivityType.objects.filter(activity_type=self.q).first()
             print(activity_type)
             qs = Activity.objects.filter(activity_type=activity_type).all()
-        else:
-            print('noooo')
+
         return qs

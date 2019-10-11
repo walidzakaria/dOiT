@@ -5,8 +5,8 @@ $(document).ready(function() {
     CreateActivityTypeAutocomplete();
 
 
-    $("#id_lat").prop('disabled', true);
-    $("#id_lon").prop('disabled', true);
+    //$("#id_lat").prop('disabled', true);
+    //$("#id_lon").prop('disabled', true);
 
     $('#id_activity').on('focus', function(e) {
         CreateActivityAutocomplete();
