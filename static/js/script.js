@@ -129,6 +129,7 @@ function CreateActivityAutocomplete() {
     let activityType = $('#id_activity_type').val();
     if (activityType) {
         urlLink = `${urlLink}?q=${activityType}`;
+        urlLink = encodeURIComponent(urlLink.trim());
         console.log(urlLink);
     }
     $.ajax({
