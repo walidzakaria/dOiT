@@ -4,6 +4,20 @@ $(document).ready(function() {
 
     CreateActivityTypeAutocomplete();
 
+    $("#id_lat").prop('disabled', true);
+    $("#id_lon").prop('disabled', true);
+
+    $('#id_activity').on('focus', function(e) {
+        CreateActivityAutocomplete();
+    })
+
+    $('#id_location').on('focusout', function() {
+        let location = $('#id_location').val();
+        if (location) {
+            GetSearchedLocation(location);
+        }
+    })
+
     var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
 
     function csrfSafeMethod(method) {
@@ -107,8 +121,35 @@ function CreateActivityTypeAutocomplete() {
             console.log(error);
         }
     });
+}
 
-
+function CreateActivityAutocomplete() {
+    let urlLink = '/activity-autocomplete/'
+    let activityType = $('#id_activity_type').val();
+    if (activityType) {
+        urlLink = `${urlLink}?q=${activityType}`;
+        console.log(urlLink);
+    }
+    $.ajax({
+        type: 'GET',
+        url: urlLink,
+        dataType: 'json',
+        data: {},
+        success: function(data) {
+            console.log(data.results);
+            let activityList = [];
+            for (activity of data.results) {
+                activityList.push(activity.text);
+                var activityInput = document.getElementById("id_activity");
+                if (activityInput) {
+                    InputAutocomplete(document.getElementById("id_activity"), activityList);
+                }
+            }
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
 
 }
 
@@ -225,13 +266,17 @@ function GetSearchedLocation(searchText) {
             console.log(data);
             let myData = data;
             userLocation = myData.Response.View[0].Result[0].Location.Address.Label;
+            userLat = myData.Response.View[0].Result[0].Location.DisplayPosition.Latitude;
+            userLong = myData.Response.View[0].Result[0].Location.DisplayPosition.Longitude;
             $('#locationLabel').text(userLocation);
             let locationList = userLocation.split(', ');
             $('#hidden-country').text(locationList[2]);
             $('#hidden-area').text(locationList[1]);
             $('#hidden-city').text(locationList[0]);
             $('#hidden-lat').text(userLat);
+            $('#id_lat').val(userLat);
             $('#hidden-long').text(userLong);
+            $('#id_lon').val(userLong);
             $('#location-form').removeClass('show');
             $('#location-list').removeClass('show');
         },

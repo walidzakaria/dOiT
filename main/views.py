@@ -153,6 +153,22 @@ class ActivityTypeAutocomplete(autocomplete.Select2QuerySetView):
 
         qs = ActivityType.objects.all()
         if self.q:
-            qs = qs.filter(name__isstartwith=self.q)
+            qs = qs.filter(activity_type__istartswith=self.q)
 
+        return qs
+
+
+class ActivityAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return Activity.objects.none()
+
+        qs = Activity.objects.all()
+        if self.q:
+            print(self.q)
+            activity_type = ActivityType.objects.filter(activity_type=self.q).first()
+            print(activity_type)
+            qs = Activity.objects.filter(activity_type=activity_type).all()
+        else:
+            print('noooo')
         return qs
