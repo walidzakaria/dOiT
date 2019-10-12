@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Count, Avg
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from cloudinary.models import CloudinaryField
@@ -11,6 +12,7 @@ GENDER_CHOICE = (
 
 REQUEST_CHOICE = (
     ('R', 'Request'),
+    ('C', 'Cancelled'),
     ('A', 'Accepted'),
     ('D', 'Declined'),
     ('F', 'Finished')
@@ -76,6 +78,24 @@ class UserActivity(models.Model):
     open_to = models.TimeField()
     description = models.CharField(max_length=350)
 
+    @property
+    def rating(self):
+        user_rating = Deal.objects.filter(user_activity=self).filter(status='F').aggregate(Avg('rating'))
+        if user_rating['rating__avg'] is None:
+            user_rating = 0
+        else:
+            user_rating = user_rating['rating__avg']
+
+        return user_rating
+
+    @property
+    def deals(self):
+        user_deals = Deal.objects.filter(user_activity=self).filter(status='F').count()
+        return user_deals
+
+    def __str__(self):
+        return f'User: {self.user.username}, Activity: {self.activity.activity}'
+
 
 class UserActivityAlbum(models.Model):
     user_activity_album_id = models.BigAutoField(primary_key=True)
@@ -85,10 +105,21 @@ class UserActivityAlbum(models.Model):
 
 class Deal(models.Model):
     deal_id = models.BigAutoField(primary_key=True)
+    user_activity = models.ForeignKey(UserActivity, on_delete=models.CASCADE)
     request_from = models.ForeignKey(User, on_delete=models.CASCADE)
-    request_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name="request_to")
     request_date = models.DateTimeField(auto_now_add=True)
     request_modified = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=1, default='R', choices=REQUEST_CHOICE)
     rating = models.IntegerField(default=5)
     review = models.TextField(null=True, blank=True)
+
+
+class SearchLog(models.Model):
+    search_log_id = models.BigAutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    search_date = models.DateTimeField(auto_now_add=True)
+    search_text = models.CharField(max_length=300, db_index=True)
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return f'User: {self.user.username}, Search: {self.search_text}'

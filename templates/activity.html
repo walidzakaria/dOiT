@@ -40,129 +40,69 @@
                         <div class="card">
                             <div class="card-header">
                                 <a class="collapsed card-link" data-toggle="collapse" href="#activity_id_{{ activity.user_activity_id }}">
-                                        {{ activity.activity }}
-                                    </a>
+                                    <strong>{{ activity.activity.activity_type }}: </strong> {{ activity.activity }}
+                                </a>
                             </div>
                             <div id="activity_id_{{ activity.user_activity_id }}" class="collapse" data-parent="#accordion">
                                 <div class="card-body">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    <table>
+                                        <tr>
+                                            <td>Activity type:</td>
+                                            <td>{{ activity.activity.activity_type }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Activity:</td>
+                                            <td>{{ activity.activity }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Location:</td>
+                                            <td>{{ activity.location }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Working days:</td>
+                                            <td>
+                                                {% if activity.monday %}Mon {% endif %}
+                                                {% if activity.tuesday %}Tue {% endif %}
+                                                {% if activity.wednesday %}Wed {% endif %}
+                                                {% if activity.thursday %}Thu {% endif %}
+                                                {% if activity.friday %}Fri {% endif %}
+                                                {% if activity.saturday %}Sat {% endif %}
+                                                {% if activity.sunday %}Sun {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Working hours:</td>
+                                            <td>From {{ activity.open_from }} to {{ activity.open_to }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Description:</td>
+                                            <td>{{ activity.description }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rating:</td>
+
+
+                                            <td>
+                                                <div class="star-rating">
+                                                    <span class="fa fa-star fa-sm {% if activity.rating >= 1 %}checked{% endif %}"></span>
+                                                    <span class="fa fa-star fa-sm {% if activity.rating >= 2 %}checked{% endif %}"></span>
+                                                    <span class="fa fa-star fa-sm {% if activity.rating >= 3 %}checked{% endif %}"></span>
+                                                    <span class="fa fa-star fa-sm {% if activity.rating >= 4 %}checked{% endif %}"></span>
+                                                    <span class="fa fa-star fa-sm {% if activity.rating >= 5 %}checked{% endif %}"></span>
+                                                    <p><b>{{ activity.rating }}</b> average based on <b>{{ activity.deals }}</b> reviews.</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </table>
                                 </div>
                             </div>
                         </div>
 
                         {% endfor %}
 
-
-                        <div class="card">
-
-
-
-                            <div class="card-header">
-                                <a class="card-link" data-toggle="collapse" href="#collapseOne">
-                                  1) First Activity
-                                </a>
-                            </div>
-                            <div id="collapseOne" class="collapse" data-parent="#accordion">
-                                <div class="card-body">
-
-                                    <form>
-                                        <div class="row register-form">
-
-
-                                            <div class="col-md-6">
-
-
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Activity Type *" value="" required />
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Activity Name *" value="" required />
-                                                </div>
-
-                                                <div class="form-group autocomplete active-green-4 mb-4">
-                                                    <label class="sr-only" for="select-location">Location</label>
-                                                    <input type="text" class="form-control" id="activity-location2" autocomplete="off" placeholder="Activity Location *" required />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <input type="password" class="form-control" placeholder="Confirm Password *" value="" required />
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="maxl">
-                                                        <label class="radio inline">
-                                                            <input type="radio" name="gender" value="male" checked>
-                                                            <span> Male </span>
-                                                        </label>
-                                                        <label class="radio inline">
-                                                            <input type="radio" name="gender" value="female">
-                                                            <span>Female </span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <input type="email" class="form-control" placeholder="Your Email *" value="" required />
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="tel" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <select class="form-control">
-                                                        <option class="hidden" selected disabled>Please select your Sequrity Question</option>
-                                                        <option>What is your Birthdate?</option>
-                                                        <option>What is Your old Phone Number</option>
-                                                        <option>What is your Pet Name?</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Enter Your Answer *" value="" required/>
-                                                </div>
-
-
-                                                <input type="submit" class="btnRegister" value="Update" />
-
-                                            </div>
-                                        </div>
-                                    </form>
-
-
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
-                                2) Second Activity
-                              </a>
-                            </div>
-                            <div id="collapseTwo" class="collapse" data-parent="#accordion">
-                                <div class="card-body">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
-                                  3) Third Activity
-                                </a>
-                            </div>
-                            <div id="collapseThree" class="collapse" data-parent="#accordion">
-                                <div class="card-body">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                </div>
-                            </div>
-                        </div>
                     </div>
-
-
-
-
-
                 </div>
-
             </div>
         </div>
     </div>

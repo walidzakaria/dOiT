@@ -50,6 +50,7 @@ class UserActivityForm(forms.ModelForm):
         fields = ('location', 'lat', 'lon',
                   'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday',
                   'open_from', 'open_to', 'description')
+        readonly_fields = ('rating', 'deals',)
         widgets = {
             'description': Textarea(attrs={'cols': 80, 'rows': 3}),
         }

@@ -12,6 +12,14 @@ html {
     min-width: 280px;
 }
 
+.card-link {
+    color: #495057 !important;
+}
+
+.card-link:hover {
+    color: green !important;
+}
+
 .autocomplete-items {
     position: sticky;
     border: 1px solid #d4d4d4;
@@ -72,6 +80,10 @@ input:focus:not([readonly]) {
 
 #img-logo {
     height: 120px;
+}
+
+.search-btn {
+    min-width: 370px;
 }
 
 .search-label {
