@@ -5,8 +5,12 @@ $(document).ready(function() {
     CreateActivityTypeAutocomplete();
 
 
-    //$("#id_lat").prop('disabled', true);
-    //$("#id_lon").prop('disabled', true);
+    $('#id-search').on('input', function(e) {
+        let searchText = $('#id-search').val();
+        if (searchText.length == 2) {
+            CreateSearchAutocomplete(searchText);
+        }
+    });
 
     $('#id_activity').on('focus', function(e) {
         CreateActivityAutocomplete();
@@ -197,6 +201,43 @@ function AddNewActivity(activityType, token) {
         }
     });
 }
+
+
+function CreateSearchAutocomplete(searchText) {
+    let urlLink = `search-autocomplete/${searchText}/`;
+    urlLink = encodeURIComponent(urlLink.trim());
+
+    $.ajax({
+        type: 'GET',
+        url: urlLink,
+        dataType: 'json',
+        data: {},
+        success: function(data) {
+            console.log(data.results[0].activity);
+
+            let searchList = [];
+            for (activity of data.results) {
+
+                if (!searchList.includes(activity.activity)) {
+                    searchList.push(activity.activity);
+                }
+
+                if (!searchList.includes(activity.activity_type.activity_type)) {
+                    searchList.push(activity.activity_type.activity_type);
+                }
+                var activityInput = document.getElementById("id-search");
+
+                InputAutocomplete(document.getElementById("id-search"), searchList);
+
+            }
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+};
+
+
 
 function AddUserActivity(activity, token) {
     let location = $('#activity-location').val();

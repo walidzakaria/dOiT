@@ -6,12 +6,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.shortcuts import render, redirect
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from .models import ActivityType, Activity, Profile, UserActivity, UserActivityAlbum
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from dal import autocomplete
+from django.db.models import Q
 
 
 from .serializers import UserSerializer, ActivityTypeSerializer, ActivitySerializer, UserActivitySerializer, \
@@ -125,7 +126,7 @@ def activity(request):
                                          description=user_activity_form.cleaned_data['description'])
 
             user_activity.save()
-            print('yesssss')
+            print('saved')
             return redirect('activity')
 
         else:
@@ -165,9 +166,36 @@ class ActivityAutocomplete(autocomplete.Select2QuerySetView):
 
         qs = Activity.objects.all()
         if self.q:
-            print(self.q)
             activity_type = ActivityType.objects.filter(activity_type=self.q).first()
-            print(activity_type)
             qs = Activity.objects.filter(activity_type=activity_type).all()
 
         return qs
+
+'''
+class SearchAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Activity.objects.all().values('activity_id', 'activity_type__activity_type', 'activity_type__activity_type_id', 'activity')
+
+        if self.q:
+            qs = qs.filter(
+                Q(activity__icontains=self.q) | Q(activity_type__activity_type__icontains=self.q)
+            )[0:200]
+
+        return qs
+'''
+
+
+class SearchAutocomplete(generics.ListAPIView):
+    serializer_class = ActivityFullSerializer
+
+    def get_queryset(self):
+        """
+        :returns user search autocomplete api list
+        """
+        search_string = self.kwargs['search_string']
+        search_string = str.replace(search_string, '+', ' ')
+        search_string = search_string.strip('')
+
+        return Activity.objects.filter(
+            Q(activity_type__activity_type__icontains=search_string) | Q(activity__icontains=search_string)
+        ).all()

@@ -5,7 +5,7 @@ from django.conf.urls import url, include
 from rest_framework import routers
 
 from main.viewsets import GetActivityListByUser
-from .views import home, signup, profile, activity, ActivityTypeAutocomplete, ActivityAutocomplete
+from .views import home, signup, profile, activity, ActivityTypeAutocomplete, ActivityAutocomplete, SearchAutocomplete
 from .routers import router
 from .api import show_activity_type
 
@@ -21,4 +21,5 @@ urlpatterns = [
         name='activity-type-autocomplete'),
     url(r'^activity-autocomplete/$', ActivityAutocomplete.as_view(),
         name='activity-autocomplete'),
+    url(r'^search-autocomplete/(?P<search_string>[\w\+]+)/$', SearchAutocomplete.as_view()),
 ]

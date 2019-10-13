@@ -1,4 +1,4 @@
-from rest_framework import serializers, request
+from rest_framework import serializers, request, generics
 from django.contrib.auth.models import User, Group
 from .models import ActivityType, Activity, UserActivity, Profile, UserActivityAlbum, Deal
 from drf_writable_nested import WritableNestedModelSerializer
@@ -155,3 +155,6 @@ class UserFullActivitySerializer(WritableNestedModelSerializer):
     class Meta:
         model = UserActivity
         fields = '__all__'
+
+
+
