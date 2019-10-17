@@ -14,10 +14,15 @@ html {
 
 .card-link {
     color: #495057 !important;
+    display: block !important;
 }
 
 .card-link:hover {
     color: green !important;
+}
+
+.card-header:hover {
+    border: 1px solid green !important;
 }
 
 .autocomplete-items {

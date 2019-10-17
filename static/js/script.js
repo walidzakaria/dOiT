@@ -2,8 +2,30 @@ $(document).ready(function() {
 
     GetGeoLocation();
 
-    CreateActivityTypeAutocomplete();
+    $('#div_id_quota').hide();
+    $('#div_id_other').hide();
 
+    $('#id_price').on('input', function(e) {
+        let price = $('#id_price').val();
+        if (price != 0 && price != null) {
+            $('#div_id_quota').show();
+        } else {
+            $('#div_id_quota').val('');
+            $('#div_id_other').val('');
+
+            $('#div_id_quota').hide();
+            $('#div_id_other').hide();
+        }
+    });
+
+    $('#id_quota').on('change', function(e) {
+        let quota = $("#id_quota option:selected").val();
+        if (quota == 'O') {
+            $('#div_id_other').show();
+        } else {
+            $('#div_id_other').hide();
+        }
+    });
 
     $('#id-search').on('input', function(e) {
         let searchText = $('#id-search').val();
@@ -14,14 +36,15 @@ $(document).ready(function() {
 
     $('#id_activity').on('focus', function(e) {
         CreateActivityAutocomplete();
-    })
+    });
 
     $('#id_location').on('focusout', function() {
         let location = $('#id_location').val();
         if (location) {
             GetSearchedLocation(location);
         }
-    })
+    });
+
 
     var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
 
@@ -103,6 +126,7 @@ $(document).ready(function() {
 
 
 });
+
 
 function CreateActivityTypeAutocomplete() {
 

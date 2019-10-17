@@ -157,4 +157,12 @@ class UserFullActivitySerializer(WritableNestedModelSerializer):
         fields = '__all__'
 
 
+class SearchResult(serializers.ModelSerializer):
+    user = UserSerializer(many=True, read_only=True)
+    activity_type = ActivityTypeSerializer(many=True,read_only=False)
+    activity = ActivitySerializer(many=True, read_only=False)
+
+    class Meta:
+        model = Deal
+        fields = '__all__'
 

@@ -93,6 +93,14 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        {% if activity.price != 0 and activity.price is not None %}
+                                            <tr>
+                                                <td>Payment:</td>
+                                                <td>
+                                                    {{ activity.price }} per {{ activity.quota.get_name_display }} {{ activity.other }}
+                                                </td>
+                                            </tr>
+                                        {% endif %}
 
                                     </table>
                                 </div>

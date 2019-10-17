@@ -18,6 +18,15 @@ REQUEST_CHOICE = (
     ('F', 'Finished')
 )
 
+WORK_PER_CHOICE = (
+    ('D', 'Per Day'),
+    ('W', 'Per Week'),
+    ('H', 'Per Hour'),
+    ('P', 'Per Piece'),
+    ('V', 'Per Visit'),
+    ('O', 'Other')
+)
+
 
 class ActivityType(models.Model):
     activity_type_id = models.BigAutoField(primary_key=True)
@@ -46,7 +55,6 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     join_date = models.DateField(auto_now_add=True)
     phone = models.CharField(max_length=20, null=True, blank=True)
-    score = models.DecimalField(max_digits=10, decimal_places=4, null=True, blank=True)
     profile_picture = CloudinaryField('image')
 
     def __str__(self):
@@ -76,6 +84,9 @@ class UserActivity(models.Model):
     sunday = models.BooleanField(default=False)
     open_from = models.TimeField()
     open_to = models.TimeField()
+    price = models.DecimalField(decimal_places=2, max_digits=14, blank=True, null=True)
+    quota = models.CharField(max_length=1, default='D', choices=WORK_PER_CHOICE, null=True, blank=True)
+    other = models.CharField(max_length=100, null=True, blank=True)
     description = models.CharField(max_length=350)
 
     @property
@@ -110,8 +121,23 @@ class Deal(models.Model):
     request_date = models.DateTimeField(auto_now_add=True)
     request_modified = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=1, default='R', choices=REQUEST_CHOICE)
+    date = models.DateField(blank=True, null=True)
+    time = models.TimeField(blank=True, null=True)
+    question = models.CharField(max_length=300, blank=True, null=True)
     rating = models.IntegerField(default=5)
     review = models.TextField(null=True, blank=True)
+
+
+class Chat(models.Model):
+    chat_id = models.BigAutoField(primary_key=True)
+    deal = models.ForeignKey(Deal, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    chat = models.CharField(max_length=300)
+    time = models.DateTimeField(auto_now_add=True)
+    seen = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'User {self.user.username}, on {self.time}: {self.chat} ({self.seen})'
 
 
 class SearchLog(models.Model):

@@ -19,7 +19,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('gender', 'birth_date',
-                  'phone', 'score', 'profile_picture')
+                  'phone', 'profile_picture')
 
 
 class SignUpForm(UserCreationForm):
@@ -49,10 +49,12 @@ class UserActivityForm(forms.ModelForm):
         model = UserActivity
         fields = ('location', 'lat', 'lon',
                   'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday',
-                  'open_from', 'open_to', 'description')
+                  'open_from', 'open_to', 'price', 'quota', 'other', 'description')
         readonly_fields = ('rating', 'deals',)
         widgets = {
             'description': Textarea(attrs={'cols': 80, 'rows': 3}),
+            'lat': forms.HiddenInput(),
+            'lon': forms.HiddenInput()
         }
 
 

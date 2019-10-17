@@ -16,7 +16,7 @@ from django.db.models import Q
 
 
 from .serializers import UserSerializer, ActivityTypeSerializer, ActivitySerializer, UserActivitySerializer, \
-    UserFullActivitySerializer, ActivityFullSerializer
+    ActivityFullSerializer
 from cloudinary.forms import cl_init_js_callbacks
 
 from django.urls import reverse_lazy
@@ -123,6 +123,9 @@ def activity(request):
                                          sunday=user_activity_form.cleaned_data['sunday'],
                                          open_from=user_activity_form.cleaned_data['open_from'],
                                          open_to=user_activity_form.cleaned_data['open_to'],
+                                         price=user_activity_form.cleaned_data['price'],
+                                         quota=user_activity_form.cleaned_data['quota'],
+                                         other=user_activity_form.cleaned_data['other'],
                                          description=user_activity_form.cleaned_data['description'])
 
             user_activity.save()
