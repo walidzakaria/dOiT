@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.shortcuts import render, redirect
 from rest_framework import viewsets, generics
-from .models import ActivityType, Activity, Profile, UserActivity, UserActivityAlbum
+from .models import ActivityType, Activity, Profile, UserActivity, UserActivityAlbum, Deal
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
@@ -16,7 +16,7 @@ from django.db.models import Q
 
 
 from .serializers import UserSerializer, ActivityTypeSerializer, ActivitySerializer, UserActivitySerializer, \
-    ActivityFullSerializer
+    ActivityFullSerializer, SearchResultSerializer
 from cloudinary.forms import cl_init_js_callbacks
 
 from django.urls import reverse_lazy
@@ -202,3 +202,20 @@ class SearchAutocomplete(generics.ListAPIView):
         return Activity.objects.filter(
             Q(activity_type__activity_type__icontains=search_string) | Q(activity__icontains=search_string)
         ).all()
+
+
+class SearchResult(generics.ListAPIView):
+    serializer_class = SearchResultSerializer
+
+    def get_queryset(self):
+        """ returns search result """
+        search_string = self.kwargs['search_string']
+        search_string = str.replace(search_string, '+', ' ')
+        search_string = search_string.strip('')
+
+        return UserActivity.objects.filter(
+            Q(activity__activity__icontains=search_string) |
+            Q(activity__activity_type__activity_type__icontains=search_string)
+        ).all()[0:100]
+
+

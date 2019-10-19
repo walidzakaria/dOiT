@@ -4,8 +4,10 @@ from django.urls import path
 from django.conf.urls import url, include
 from rest_framework import routers
 
+from main.serializers import SearchResultSerializer
 from main.viewsets import GetActivityListByUser
-from .views import home, signup, profile, activity, ActivityTypeAutocomplete, ActivityAutocomplete, SearchAutocomplete
+from .views import home, signup, profile, activity, ActivityTypeAutocomplete, ActivityAutocomplete, SearchAutocomplete, \
+    SearchResult
 from .routers import router
 from .api import show_activity_type
 
@@ -22,4 +24,5 @@ urlpatterns = [
     url(r'^activity-autocomplete/$', ActivityAutocomplete.as_view(),
         name='activity-autocomplete'),
     url(r'^search-autocomplete/(?P<search_string>[\w\+]+)/$', SearchAutocomplete.as_view()),
+    url(r'^search-result/(?P<search_string>[\w\+]+)/$', SearchResult.as_view())
 ]

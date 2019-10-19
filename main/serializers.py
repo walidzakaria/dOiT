@@ -8,10 +8,18 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User, Group
 
 
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+
 class UserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer(many=False, read_only=True)
+
     class Meta:
         model = User
-        fields = '__all__'
+        exclude = ('password', )
 
 
 class ActivityTypeSerializer(serializers.ModelSerializer):
@@ -36,7 +44,8 @@ class ActivitySerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """ This is to override the normal saving, and avoids duplication """
-        existing_object = Activity.objects.filter(activity_type=validated_data['activity_type'], activity=validated_data['activity']).first()
+        existing_object = Activity.objects.filter(activity_type=validated_data['activity_type'],
+                                                  activity=validated_data['activity']).first()
         if not existing_object:
             new_object = Activity(activity_type=validated_data['activity_type'], activity=validated_data['activity'])
             new_object.save()
@@ -111,8 +120,10 @@ class FullActivitySerializer(serializers.Serializer):
             existing_activity = Activity(activity_type=existing_type, activity=validated_data['activity'])
         activity_user = User.objects.filter(username=validated_data['username'])
         print(activity_user.id)
-        new_activity = UserActivity(user=activity_user.id, activity=existing_activity, location=validated_data['location'],
-                                    lat=validated_data['lat'], lon=validated_data['lon'], monday=validated_data['monday'],
+        new_activity = UserActivity(user=activity_user.id, activity=existing_activity,
+                                    location=validated_data['location'],
+                                    lat=validated_data['lat'], lon=validated_data['lon'],
+                                    monday=validated_data['monday'],
                                     tuesday=validated_data['tuesday'], wednesday=validated_data['wednesday'],
                                     thursday=validated_data['thursday'], friday=validated_data['friday'],
                                     saturday=validated_data['saturday'], sunday=validated_data['sunday'],
@@ -151,18 +162,20 @@ class FullActivitySerializer(serializers.Serializer):
 
 class UserFullActivitySerializer(WritableNestedModelSerializer):
     activity = ActivityFullSerializer(many=False, read_only=True)
+    user = UserSerializer(many=False, read_only=True)
 
     class Meta:
         model = UserActivity
         fields = '__all__'
 
 
-class SearchResult(serializers.ModelSerializer):
-    user = UserSerializer(many=True, read_only=True)
-    activity_type = ActivityTypeSerializer(many=True,read_only=False)
-    activity = ActivitySerializer(many=True, read_only=False)
+class SearchResultSerializer(serializers.ModelSerializer):
+    activity = ActivityFullSerializer(many=False, read_only=True)
+    user = UserSerializer(many=False, read_only=True)
+    rating = serializers.ReadOnlyField()
+    deals = serializers.ReadOnlyField()
 
     class Meta:
-        model = Deal
+        model = UserActivity
         fields = '__all__'
 

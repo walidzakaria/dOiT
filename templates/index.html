@@ -9,19 +9,19 @@
 
     <!-- Search form -->
 
-    <form class="form-group" autocomplete="off" action="">
+    <form id="search-form" class="form-group" autocomplete="off" action="">
         <div class="autocomplete active-green-4 mb-4">
 
-            <input class="form-control" id="id-search" type="text" name="myCountry" placeholder="Search" aria-label="Search">
+            <input class="form-control" id="id-search" type="text" name="my-search" placeholder="Search" aria-label="Search">
 
         </div>
-        <input id="search-btn" class="btn btn-secondary" type="submit" value="Search">
+        <button id="search-btn" class="btn btn-secondary">Search</button>
         <p id="invalidLocation"></p>
         <p id="location"></p>
     </form>
 
-    <div class="container mt-3 result-view">
-
+    <div id="result-view" class="container mt-3 result-view">
+        ${ info }
         <div class="border">
 
             <div class="media p-3">
@@ -177,7 +177,7 @@
                                 <input class="rating-value" type="hidden" name="rating-value" value="5">
                             </div>
                             <br>
-                            <textarea name="feedback" rows="3"></textarea>
+                            <textarea class="form-control" name="feedback" rows="3"></textarea>
                             <br>
                             <button type="button" class="btn btn-info">Finish</button>
                         </form>
@@ -189,27 +189,8 @@
 
         </div>
 
-        <a class="result-view" href="#">
-            <div class="media border p-3">
-                <div class="media-body">
-                    <h3 class="searched-name">John Doe <small><i class="job-label">Carpenter</i></small></h3>
-
-                    <div class="star-rating">
-                        <span class="fa fa-star fa-sm checked"></span>
-                        <span class="fa fa-star fa-sm checked"></span>
-                        <span class="fa fa-star fa-sm checked"></span>
-                        <span class="fa fa-star fa-sm"></span>
-                        <span class="fa fa-star fa-sm"></span>
-                        <p>4.1 average based on 254 reviews.</p>
-                    </div>
-
-                    <p class="search-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-                <img class="search-photo" src="{% static 'img/default-profile.png' %}" alt="John Doe" class="ml-3 mt-3 rounded-circle">
-            </div>
-        </a>
-
     </div>
 </div>
+
 
 {% endblock %}

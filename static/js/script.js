@@ -2,6 +2,13 @@ $(document).ready(function() {
 
     GetGeoLocation();
 
+    $('#search-form').submit(function(e) {
+        let searchText = $('#id-search').val();
+        e.preventDefault();
+        ApplySearch(searchText);
+    });
+
+
     $('#div_id_quota').hide();
     $('#div_id_other').hide();
 
@@ -354,6 +361,27 @@ function GetSearchedLocation(searchText) {
 
 };
 
+function ApplySearch(searchText) {
+    let searchUrl = `search-result/${searchText}`;
+    searchUrl = searchUrl.replace(' ', '+');
+    searchUrl = encodeURIComponent(searchUrl.trim());
+
+    $.ajax({
+        type: "GET",
+        url: searchUrl,
+        dataType: "json",
+        data: {},
+        success: function(data) {
+            console.log(data);
+            $('#result-view').text('');
+            $('#result-view').append('<h1>TEST</h1>');
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+
 function GetSuggestions(keywords, objectName, sticky) {
     keywords = keywords.replace(' ', '+');
     keywords = encodeURIComponent(keywords.trim());
@@ -481,25 +509,6 @@ function ListAutoComplete(objectName, suggestions) {
                 x[activeIndex].classList.add("autocomplete-active");
             };
         };
-        //function addActive(x) {
-        //    /*a function to classify an item as "active":*/
-        //    if (!x) return false;
-        //    /*start by removing the "active" class on all items:*/
-        //    removeActive(x);
-        //    if (currentFocus >= x.length) currentFocus = 0;
-        //    if (currentFocus < 0) currentFocus = (x.length - 1);
-        /*add class "autocomplete-active":*/
-
-        //    x[currentFocus].classList.add("autocomplete-active");
-
-        //}
-
-        //function removeActive(x) {
-        //    /*a function to remove the "active" class from all autocomplete items:*/
-        //    for (var i = 0; i < x.length; i++) {
-        //        x[i].classList.remove("autocomplete-active");
-        //    }
-        // }
 
         function closeAllLists(elmnt) {
             /*close all autocomplete lists in the document,
