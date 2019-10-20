@@ -774,8 +774,9 @@ function ShowResult(details) {
     if (details.saturday) { workingDays += 'Sat, '; }
     if (details.sunday) { workingDays += 'Sun, '; }
 
+
     let userName = (details.user.first_name) ? `${details.user.first_name} ${details.user.last_name}` : details.user.username;
-    let userPic = (details.user.profile.profile_pitcure != "") ? `https://res.cloudinary.com/doit/${details.user.profile.profile_pitcure}` : `/static/img/default-profile.png`;
+    let userPic = (details.user.profile.profile_picture != "") ? `https://res.cloudinary.com/doit/${details.user.profile.profile_picture}` : `/static/img/default-profile.png`;
     let resultTemplate = `
     <div class="border">
         <a class="result-view media" href="#more-details-${details.user_activity_id}" data-toggle="collapse">
