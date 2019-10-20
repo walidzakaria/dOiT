@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^activity-autocomplete/$', ActivityAutocomplete.as_view(),
         name='activity-autocomplete'),
     url(r'^search-autocomplete/(?P<search_string>[\w\+]+)/$', SearchAutocomplete.as_view()),
-    url(r'^search-result/(?P<search_string>[\w\+]+)/$', SearchResult.as_view())
+    url(r'^search-result/(?P<search_string>[\w\+]+)/(?P<user_lat>\d+(?:\.\d+)?)/(?P<user_lon>\d+(?:\.\d+)?)/$', SearchResult.as_view())
 ]

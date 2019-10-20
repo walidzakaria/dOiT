@@ -25,6 +25,10 @@ $(document).ready(function() {
         }
     });
 
+    $('a.load-details').on('click', function() {
+        alert('walid');
+    })
+
     $('#id_quota').on('change', function(e) {
         let quota = $("#id_quota option:selected").val();
         if (quota == 'O') {
@@ -353,6 +357,7 @@ function GetSearchedLocation(searchText) {
             $('#id_lon').val(userLong);
             $('#location-form').removeClass('show');
             $('#location-list').removeClass('show');
+            $('.location-info').hide();
         },
         error: function(error) {
             console.log(error);
@@ -362,7 +367,7 @@ function GetSearchedLocation(searchText) {
 };
 
 function ApplySearch(searchText) {
-    let searchUrl = `search-result/${searchText}`;
+    let searchUrl = `search-result/${searchText}/1/1/`;
     searchUrl = searchUrl.replace(' ', '+');
     searchUrl = encodeURIComponent(searchUrl.trim());
 
@@ -571,13 +576,13 @@ function GetGeoLocation() {
                 console.log(data);
                 let myData = data;
                 userLocation = myData.Response.View[0].Result[0].Location.Address.Label;
-                $('#locationLabel').text(userLocation);
+                $('#locationLabel').val(userLocation);
                 let locationList = userLocation.split(', ');
-                $('#hidden-country').text(locationList[2]);
-                $('#hidden-area').text(locationList[1]);
-                $('#hidden-city').text(locationList[0]);
-                $('#hidden-lat').text(userLat);
-                $('#hidden-long').text(userLong);
+                $('#hidden-country').val(locationList[2]);
+                $('#hidden-area').val(locationList[1]);
+                $('#hidden-city').val(locationList[0]);
+                $('#hidden-lat').val(userLat);
+                $('#hidden-long').val(userLong);
             },
             error: function(error) {
                 GetIp();
@@ -779,7 +784,7 @@ function ShowResult(details) {
     let userPic = (details.user.profile.profile_picture != "") ? `https://res.cloudinary.com/doit/${details.user.profile.profile_picture}` : `/static/img/default-profile.png`;
     let resultTemplate = `
     <div class="border">
-        <a class="result-view media" href="#more-details-${details.user_activity_id}" data-toggle="collapse">
+        <a class="result-view media load-details" href="#more-details-${details.user_activity_id}" data-toggle="collapse">
         <div class="search-card">
             <div class="search-info">
                 <h3 class="searched-name">${userName} <small><i class="job-label">${details.activity.activity_type.activity_type} (${details.activity.activity})</i></small></h3>
@@ -823,7 +828,7 @@ function ShowResult(details) {
 
                 <div class="media-body rating-history d-flex">
                     <div class="p-2">
-                        <img src="{% static 'img/default-profile.png' %}" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                        <img src="static/img/default-profile.png" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
                     </div>
                     <div class="rating-details p-2 flex-grow-1">
                         <h4>Walid Zakaria <small><i>Posted on February 19, 2016</i></small></h4>
@@ -841,7 +846,7 @@ function ShowResult(details) {
 
                 <div class="media-body rating-history d-flex">
                     <div class="p-2">
-                        <img src="{% static 'img/default-profile.png' %}" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                        <img src="static/img/default-profile.png" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
                     </div>
                     <div class="rating-details p-2 flex-grow-1">
                         <h4>Jonhn Amr <small><i>Posted on February 19, 2016</i></small></h4>
@@ -874,17 +879,17 @@ function ShowResult(details) {
                     <div class="carousel-inner" role="listbox">
                         <!--First slide-->
                         <div class="carousel-item active">
-                            <img class="d-block w-100" src="{% static 'img/gallery/first.jpg' %}" alt="First slide">
+                            <img class="d-block w-100" src="static/img/gallery/first.jpg" alt="First slide">
                         </div>
                         <!--/First slide-->
                         <!--Second slide-->
                         <div class="carousel-item">
-                            <img class="d-block w-100" src="{% static 'img/gallery/second.jpg' %}" alt="Second slide">
+                            <img class="d-block w-100" src="static/img/gallery/second.jpg" alt="Second slide">
                         </div>
                         <!--/Second slide-->
                         <!--Third slide-->
                         <div class="carousel-item">
-                            <img class="d-block w-100" src="{% static 'img/gallery/first.jpg' %}" alt="Third slide">
+                            <img class="d-block w-100" src="static/img/gallery/first.jpg" alt="Third slide">
                         </div>
                         <!--/Third slide-->
                     </div>

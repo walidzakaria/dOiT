@@ -4,6 +4,7 @@ from django.db.models import Count, Avg
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from cloudinary.models import CloudinaryField
+from geopy.distance import geodesic
 
 GENDER_CHOICE = (
     ('M', 'Male'),
@@ -103,6 +104,11 @@ class UserActivity(models.Model):
     def deals(self):
         user_deals = Deal.objects.filter(user_activity=self).filter(status='F').count()
         return user_deals
+
+    def distance(self, other_location):
+        deal_location = (self.lat, self.lon)
+        result = geodesic(deal_location, other_location).kilometers
+        return result
 
     def __str__(self):
         return f'User: {self.user.username}, Activity: {self.activity.activity}'

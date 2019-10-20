@@ -137,7 +137,13 @@
                                     <div class="form-group autocomplete active-green-4 mb-4">
                                        <label class="sr-only" for="select-location">Location</label>
                                        <input type="text" class="form-control" id="select-country" placeholder="Where're you?" required />
-
+                                       <input id="locationLabel" type="hidden">
+                                       <input id="hidden-country" type="hidden">
+                                       <input id="hidden-area" type="hidden">
+                                       <input id="hidden-city" type="hidden">
+                                       <input id="hidden-lat" type="hidden">
+                                       <input id="hidden-long" type="hidden">
+                                       <input id="hidden-ip" type="hidden">
                                     </div>
                                        <button class="btn btn-success btn-block">OK</button>
 
@@ -211,15 +217,6 @@
             </div>
         </section>
 
-        <section class="location-info">
-            <div id="locationLabel"></div>
-            <div id="hidden-country"></div>
-            <div id="hidden-area"></div>
-            <div id="hidden-city"></div>
-            <div id="hidden-lat"></div>
-            <div id="hidden-long"></div>
-            <div id="hidden-ip"></div>
-        </section>
     </footer>
 
 

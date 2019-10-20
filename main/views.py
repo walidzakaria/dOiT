@@ -14,7 +14,6 @@ from rest_framework.parsers import JSONParser
 from dal import autocomplete
 from django.db.models import Q
 
-
 from .serializers import UserSerializer, ActivityTypeSerializer, ActivitySerializer, UserActivitySerializer, \
     ActivityFullSerializer, SearchResultSerializer
 from cloudinary.forms import cl_init_js_callbacks
@@ -174,6 +173,7 @@ class ActivityAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+
 '''
 class SearchAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -213,9 +213,15 @@ class SearchResult(generics.ListAPIView):
         search_string = str.replace(search_string, '+', ' ')
         search_string = search_string.strip('')
 
-        return UserActivity.objects.filter(
+        user_lat = self.kwargs['user_lat']
+        user_lon = self.kwargs['user_lon']
+        user_location = (user_lat, user_lon)
+
+        unsorted_activities = UserActivity.objects.filter(
             Q(activity__activity__icontains=search_string) |
             Q(activity__activity_type__activity_type__icontains=search_string)
         ).all()[0:100]
 
-
+        # sorted_activities = sorted(unsorted_activities, lambda t: t.rating)
+        # return sorted_activities
+        return unsorted_activities
