@@ -374,7 +374,12 @@ function ApplySearch(searchText) {
         success: function(data) {
             console.log(data);
             $('#result-view').text('');
-            $('#result-view').append('<h1>TEST</h1>');
+            for (i of data.results) {
+                console.log(i);
+                $('#result-view').append(ShowResult(i));
+            }
+
+
         },
         error: function(error) {
             console.log(error);
@@ -709,6 +714,11 @@ function InputAutocomplete(inp, arr) {
                 /*and simulate a click on the "active" item:*/
                 if (x) x[currentFocus].click();
             }
+
+            let searchText = $('#id-search').val();
+            e.preventDefault();
+            ApplySearch(searchText);
+
         }
     });
 
@@ -744,4 +754,193 @@ function InputAutocomplete(inp, arr) {
     document.addEventListener("click", function(e) {
         closeAllLists(e.target);
     });
+}
+
+
+function ShowResult(details) {
+
+    var firstStar = '<span class="fa fa-star fa-sm checked"></span>';
+    var secondStar = (details.rating >= 2) ? '<span class="fa fa-star fa-sm checked"></span>' : '<span class="fa fa-star fa-sm"></span>';
+    var thirdStar = (details.rating >= 2) ? '<span class="fa fa-star fa-sm checked"></span>' : '<span class="fa fa-star fa-sm"></span>';
+    var fourthStar = (details.rating >= 2) ? '<span class="fa fa-star fa-sm checked"></span>' : '<span class="fa fa-star fa-sm"></span>';
+    var fifthStar = (details.rating >= 2) ? '<span class="fa fa-star fa-sm checked"></span>' : '<span class="fa fa-star fa-sm"></span>';
+
+    let workingDays = ``;
+    workingDays = details.monday ? 'Mon, ' : '';
+    if (details.tuesday) { workingDays += 'Tue, '; }
+    if (details.wednesday) { workingDays += 'Wed, '; }
+    if (details.thursday) { workingDays += 'Thu, '; }
+    if (details.friday) { workingDays += 'Fri, '; }
+    if (details.saturday) { workingDays += 'Sat, '; }
+    if (details.sunday) { workingDays += 'Sun, '; }
+
+    let userName = (details.user.first_name) ? `${details.user.first_name} ${details.user.last_name}` : details.user.username;
+    let userPic = (details.user.profile.profile_pitcure) ? `https://res.cloudinary.com/doit/${details.user.profile.profile_pitcure}` : `/static/img/default-profile.png`;
+    let resultTemplate = `
+    <div class="border">
+        <a class="result-view media" href="#more-details-${details.user_activity_id}" data-toggle="collapse">
+        <div class="search-card">
+            <div class="search-info">
+                <h3 class="searched-name">${userName} <small><i class="job-label">${activity.activity_type.activity_type} (${activity.activity})</i></small></h3>
+
+                <div class="star-rating">
+                    ${firstStar}${secondStar}${thirdStar}${fourthStar}${fifthStar}
+                </div>
+                <div class="more-info">
+                    <p><b>${details.rating}</b> average based on <b>${details.deals}</b> deals.</p>
+                    <p>${details.location}</p>
+                    <p><i>${workingDays} from ${details.open_from} to ${details.open_to}</i></p>
+                </div>
+
+            </div>
+            <div class="search-pic">
+                <img class="search-photo" src="${userPic}" alt="${userName}" class="ml-3 mt-3 rounded-circle">
+            </div>
+            <div class="search-description">
+                <p class="description-text">${details.description}</p>
+            </div>
+        </div>
+    </a>
+    <div id="more-details-${details.user_activity_id}" class="collapse container">
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#user-details">Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#user-gallery">Gallery</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#user-deal">Deal</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div id="user-details" class="container tab-pane active">
+
+
+                <div class="media-body rating-history d-flex">
+                    <div class="p-2">
+                        <img src="{% static 'img/default-profile.png' %}" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                    </div>
+                    <div class="rating-details p-2 flex-grow-1">
+                        <h4>Walid Zakaria <small><i>Posted on February 19, 2016</i></small></h4>
+                        <div class="star-rating star-rating-history">
+                            <span class="fa fa-star fa-sm checked"></span>
+                            <span class="fa fa-star fa-sm checked"></span>
+                            <span class="fa fa-star fa-sm checked"></span>
+                            <span class="fa fa-star fa-sm"></span>
+                            <span class="fa fa-star fa-sm"></span>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+
+
+                <div class="media-body rating-history d-flex">
+                    <div class="p-2">
+                        <img src="{% static 'img/default-profile.png' %}" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                    </div>
+                    <div class="rating-details p-2 flex-grow-1">
+                        <h4>Jonhn Amr <small><i>Posted on February 19, 2016</i></small></h4>
+                        <div class="star-rating star-rating-history">
+                            <span class="fa fa-star fa-sm checked"></span>
+                            <span class="fa fa-star fa-sm checked"></span>
+                            <span class="fa fa-star fa-sm"></span>
+                            <span class="fa fa-star fa-sm"></span>
+                            <span class="fa fa-star fa-sm"></span>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+
+            </div>
+            <div id="user-gallery" class="container tab-pane fade">
+                <br>
+                <h3>Gallery</h3>
+
+                <!--Carousel Wrapper-->
+                <div id="carousel-example-1z" class="carousel slide carousel-fade rating-carousel" data-ride="carousel">
+                    <!--Indicators-->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-1z" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-1z" data-slide-to="2"></li>
+                    </ol>
+                    <!--/.Indicators-->
+                    <!--Slides-->
+                    <div class="carousel-inner" role="listbox">
+                        <!--First slide-->
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="{% static 'img/gallery/first.jpg' %}" alt="First slide">
+                        </div>
+                        <!--/First slide-->
+                        <!--Second slide-->
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="{% static 'img/gallery/second.jpg' %}" alt="Second slide">
+                        </div>
+                        <!--/Second slide-->
+                        <!--Third slide-->
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="{% static 'img/gallery/first.jpg' %}" alt="Third slide">
+                        </div>
+                        <!--/Third slide-->
+                    </div>
+                    <!--/.Slides-->
+                    <!--Controls-->
+                    <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                    <!--/.Controls-->
+                </div>
+                <!--/.Carousel Wrapper-->
+
+            </div>
+            <div id="user-deal" class="container tab-pane fade">
+                <br>
+                <h3>Deal</h3>
+                <button type="button" class="btn btn-success">Request Deal</button>
+                <button type="button" class="btn btn-secondary">Cancel Request</button>
+
+
+
+                <form>
+                    <div class="star-rating star-rating-history rating-input">
+                        <div class=" stars star-1">
+                            <span class="fa fa-star fa-sm checked star rate-1"></span>
+                        </div>
+                        <div class=" stars star-2">
+                            <span class="fa fa-star fa-sm checked star rate-2"></span>
+                        </div>
+                        <div class="stars star-3">
+                            <span class="fa fa-star fa-sm checked star rate-3"></span>
+                        </div>
+                        <div class="stars star-4">
+                            <span class="fa fa-star fa-sm checked star rate-4"></span>
+                        </div>
+                        <div class="stars star-5">
+                            <span class="fa fa-star fa-sm checked star rate-5"></span>
+                        </div>
+                        <span class="rating-view"><i>100%</i></span>
+                        <input class="rating-value" type="hidden" name="rating-value" value="5">
+                    </div>
+                    <br>
+                    <textarea class="form-control" name="feedback" rows="3"></textarea>
+                    <br>
+                    <button type="button" class="btn btn-info">Finish</button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+    `
+    return resultTemplate;
 }
