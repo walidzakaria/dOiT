@@ -782,7 +782,7 @@ function ShowResult(details) {
         <a class="result-view media" href="#more-details-${details.user_activity_id}" data-toggle="collapse">
         <div class="search-card">
             <div class="search-info">
-                <h3 class="searched-name">${userName} <small><i class="job-label">${activity.activity_type.activity_type} (${activity.activity})</i></small></h3>
+                <h3 class="searched-name">${userName} <small><i class="job-label">${details.activity.activity_type.activity_type} (${details.activity.activity})</i></small></h3>
 
                 <div class="star-rating">
                     ${firstStar}${secondStar}${thirdStar}${fourthStar}${fifthStar}
