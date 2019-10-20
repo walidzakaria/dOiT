@@ -178,4 +178,5 @@ class SearchResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserActivity
         fields = '__all__'
+        depth = 1
 
